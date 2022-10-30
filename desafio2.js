@@ -16,6 +16,11 @@ const producto3={
     price:150,
     thumbnail:"https://http2.mlstatic.com/D_NQ_NP_765860-MLA42858337222_072020-V.jpg"
 }
+const producto4={
+    title:"azucar",
+    price:120,
+    thumbnail:"https://http2.mlstatic.com/D_NQ_NP_765860-MLA42858337222_072020-V.jpg"
+}
 const ruta = './productoscomprados.json';
 
 let arrayCompras=[]
@@ -28,17 +33,14 @@ class Contenedor{
             if (fs.existsSync(ruta)) {
                 const datos = await fs.promises.readFile(ruta,'utf-8');
                 arrayCompras = JSON.parse(datos);
-                const id =arrayCompras.length +1;
+                const id =arrayCompras[arrayCompras.length-1].id + 1;
                 objeto.id = id;
-                arrayCompras.push(objeto);
-                await fs.promises.writeFile(ruta,JSON.stringify(arrayCompras,null,2))
-                console.log(`el numero de ID asignado es ${objeto.id}`);
             } else {
                 objeto.id = 1;
-                arrayCompras.push(objeto)
-                await fs.promises.writeFile(ruta,JSON.stringify(arrayCompras,null,2));
-                console.log(`el numero de ID asignado es ${objeto.id}`);
             }
+            arrayCompras.push(objeto);
+            await fs.promises.writeFile(ruta,JSON.stringify(arrayCompras,null,2))
+            console.log(`el numero de ID asignado es ${objeto.id}`);
         } catch (error) {
             console.log(error);
         }
@@ -47,7 +49,7 @@ class Contenedor{
         try {
             const leerDatos = await fs.promises.readFile(ruta,'utf-8');
             arrayCompras=JSON.parse(leerDatos);
-            if (arrayCompras.length>=numeroId) {
+            if (arrayCompras.some(prod=>prod.id==numeroId)) {
                 const itemEncontrado = arrayCompras.find(prod=>prod.id==numeroId);
                 console.log(itemEncontrado);
             }else{
@@ -57,6 +59,7 @@ class Contenedor{
             console.log(error);
         }
     }
+    //trae todos los productos que se encuentran en el array,o sino te dice que esta vacio.
     getAll=async()=>{
         try {
             const data = await fs.promises.readFile(ruta,'utf-8');
@@ -70,11 +73,12 @@ class Contenedor{
             console.log('error de lectura'+ error);
         }
     }
+    //elimina un producto del JSON si lo encuentra,
     deleteById=async(deleteId)=>{
         try {
             const getData = await fs.promises.readFile(ruta,'utf-8');
             const archivos = JSON.parse(getData);
-            if (archivos.length >= deleteId) {
+            if (archivos.some(item=>item.id === parseInt(deleteId))) {
                 arrayCompras = archivos.filter(item=>item.id !== parseInt(deleteId));
                 await fs.promises.writeFile(ruta,(JSON.stringify(arrayCompras,null,2)));
                 console.log(`el producto con el ID: ${deleteId} a sido eliminado `);
@@ -85,6 +89,7 @@ class Contenedor{
             console.log(error);
         }
     }
+    //elimina todos los productos que estan en el JSON.
     deleteAll=async()=>{
         const arrayVacio=[]
         try {
@@ -98,19 +103,28 @@ class Contenedor{
 //ejecutando todos los metodos,creando un usuario.
 const usuarioComprador = new Contenedor ('Eduardo');
 
-//el usuario compra los productos y los guarda en el json devuelve el id del producto
-usuarioComprador.save(producto3);
+const ejecutandoMetodos = async()=>{
 
-//devuelve el objeto con el ID enviado o de lo contrario te dice que no existe.
-usuarioComprador.getById("2");
-usuarioComprador.getById("5");
+    //el usuario compra los productos y los guarda en el json devuelve el id del producto
+    await usuarioComprador.save(producto1);
+    await usuarioComprador.save(producto2);
+    await usuarioComprador.save(producto3);
+    await usuarioComprador.save(producto4);
 
-//devuelve todos los productos o de lo contrario nos avisa que no tenemos productos.
-usuarioComprador.getAll();
+    //devuelve el objeto con el ID enviado o de lo contrario te dice que no existe.
+    await usuarioComprador.getById("2");
+    await usuarioComprador.getById("5");
 
-//este metodo le permite al usuario eliminar algun producto de su array.
-usuarioComprador.deleteById("4");
-usuarioComprador.deleteById("8");
+    //devuelve todos los productos o de lo contrario nos avisa que no tenemos productos.
+    await usuarioComprador.getAll();
 
-//elimina todos los archivos.
-// usuarioComprador.deleteAll();
+    //este metodo le permite al usuario eliminar algun producto de su array.
+    await usuarioComprador.deleteById("3");
+    await usuarioComprador.deleteById("5");
+}
+
+//esta funcion elimina todos los productos del JSON.
+const eliminarArchivo = async()=>{
+    await usuarioComprador.deleteAll();
+}
+ejecutandoMetodos();

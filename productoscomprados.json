@@ -12,14 +12,8 @@
     "id": 2
   },
   {
-    "title": "harina",
-    "price": 150,
-    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_765860-MLA42858337222_072020-V.jpg",
-    "id": 3
-  },
-  {
-    "title": "harina",
-    "price": 150,
+    "title": "azucar",
+    "price": 120,
     "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_765860-MLA42858337222_072020-V.jpg",
     "id": 4
   }
