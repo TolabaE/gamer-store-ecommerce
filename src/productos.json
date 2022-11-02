@@ -1,0 +1,58 @@
+[
+  {
+    "nombre": "secarropas",
+    "marca": "dream",
+    "precio": 102,
+    "imagen": "http://imagen.pnj",
+    "id": 1
+  },
+  {
+    "nombre": "aire acondicionado",
+    "marca": "Philco",
+    "precio": 150900,
+    "imagen": "https://uiseros--46224.jpg?v=636383732923400000",
+    "id": 2
+  },
+  {
+    "nombre": "licuadora",
+    "marca": "liqueitor",
+    "precio": 10200,
+    "imagen": "https://http2.mlstatic.com/D_NQ_NP_765860-MLA42858337222_072020-V.jpg",
+    "id": 3
+  },
+  {
+    "nombre": "play stations",
+    "marca": "sony",
+    "precio": 350000,
+    "imagen": "http//imagen/tiendaapp/playstation/fravega.pnj",
+    "id": 4
+  },
+  {
+    "nombre": "televisor",
+    "marca": "samsung",
+    "precio": 54000,
+    "imagen": "https://smasungtelevisor-0000-DIA-1-Kg-_1.jpg?v=637699739334400000",
+    "id": 5
+  },
+  {
+    "nombre": "ventilador",
+    "marca": "atma",
+    "precio": 53000,
+    "imagen": "http//imagen/tiendaapp/ventiladorl/fravega.pnj",
+    "id": 6
+  },
+  {
+    "nombre": "termo",
+    "marca": "stanley",
+    "precio": 43000,
+    "imagen": "http//imagen/tiendaapp/termo/fravega.pnj",
+    "id": 7
+  },
+  {
+    "nombre": "ventilador",
+    "marca": "atma",
+    "precio": 53000,
+    "imagen": "http//imagen/tiendaapp/ventiladorl/fravega.pnj",
+    "id": 9
+  }
+]
