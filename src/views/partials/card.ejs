@@ -1,0 +1,17 @@
+
+<% if (baseDatos.length===0) { %>
+    <p>no hay productos para mostrar</p>
+<% }else{ %>
+    <% baseDatos.forEach(prod => { %>
+        <div class="container-card">
+            <div class="container-img">
+                <img src=<%=prod.image %> class="box-img" alt="imagen del productos">
+            </div>
+            <div>
+                <h3><%=prod.nombre %> </h3>
+                <p>marca: <%=prod.marca %> </p>
+                <h4> $ <%=prod.precio %> </h4>
+            </div>
+        </div>
+    <% }) %>
+<% } %>

@@ -2,37 +2,6 @@
 import fs from 'fs';
 import __dirname from './utils.js';
 
-const producto1={
-    nombre:"televisor",
-    marca:"samsung",
-    precio:54000,
-    imagen:"https://smasungtelevisor-0000-DIA-1-Kg-_1.jpg?v=637699739334400000"
-}
-const producto2={
-    nombre:"aire acondicionado",
-    marca:"Philco",
-    precio:150900,
-    imagen:"https://uiseros--46224.jpg?v=636383732923400000"
-}
-const producto3={
-    nombre:"licuadora",
-    marca:"liqueitor",
-    precio:10200,
-    imagen:"https://http2.mlstatic.com/D_NQ_NP_765860-MLA42858337222_072020-V.jpg"
-}
-const producto4={
-    nombre:"microondas",
-    marca:"samsung",
-    precio:111999,
-    imagen:"https://http2.mlstatic.com/D_NQ_NP_765860-MLA42858337222_072020-V.jpg"
-}
-const producto5={
-    nombre: "lavarropas",
-    marca: "dream",
-    precio: 105000,
-    imagen: "/imagen/fravega/lavarropas.jpg"
-}
-
 const ruta = `${__dirname}/productos.json`;
 
 class Contenedor{
@@ -106,9 +75,10 @@ class Contenedor{
     //este metodo recibe dos parametros el id y el objeto.
     updateById = async(idurl,newproduct)=>{
         const datos = await this.getAll();
-        if (datos.some(ele=>ele.id === parseInt(idurl))) {
-            const arreglo = datos.filter(pro=>pro.id !== parseInt(idurl));//filtro al item con ese ID,
-            newproduct.id = parseInt(idurl);//luego reemplazo el nuevo producto con ese ID, 
+        parseInt(idurl);//parseo el id que me envian por url
+        if (datos.some(ele=>ele.id === idurl)) {
+            const arreglo = datos.filter(pro=>pro.id !== idurl);//filtro al item con ese ID,
+            newproduct.id = idurl;//luego reemplazo el nuevo producto con ese ID, 
             arreglo.push(newproduct);//pusheo el nuevo objeto con el ID al array.
             arreglo.sort((item1,item2)=>item1.id-item2.id);//este metodo me ordena el array de productos.
             await fs.promises.writeFile(ruta,(JSON.stringify(arreglo,null,2)));

@@ -1,0 +1,76 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: burlywood;
+}
+.title-form{
+    text-align: center;
+    background-color:  rgb(201, 112, 49);
+    color: beige;
+    padding: 15px;
+    margin: 10px 0px;
+}
+.container-form{
+    text-align: center;
+    align-content: center;
+    margin: center;
+}
+.box-form{
+    display: flex;
+    flex-direction: column;
+    background-color:peru;
+    padding: 30px;
+    border-radius: 12px;
+    margin: 1% 40%;
+}
+.title-products{
+    text-align: center;
+    background-color: rgb(201, 112, 49);
+    color: beige;
+    padding: 15px;
+    margin: 10px 0px;
+}
+.container-card-father{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.container-card{
+    display: inline-block;
+    background-color: peru;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 10px;
+    transition: all 1s;
+}
+.container-card:hover{
+    transform: scale(1.1);
+}
+.container-img{
+    width: 200px;
+}
+.box-img{
+    width: 100%;
+}
+.container-navbar{
+    background-color:#a85311;
+    padding: 25px;
+    
+}
+.list-menu{
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+}
+.list-menu a{
+    text-transform: uppercase;
+    text-decoration: none;
+    background-color: peru;
+    color: beige;
+    font-weight: 700;
+    padding: 8px 10px;
+    border-radius: 5px;
+}

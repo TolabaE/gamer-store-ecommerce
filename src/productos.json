@@ -1,58 +1,58 @@
 [
   {
-    "nombre": "secarropas",
-    "marca": "dream",
-    "precio": 102,
-    "imagen": "http://imagen.pnj",
+    "nombre": "pc gamer ",
+    "marca": "ryzen",
+    "precio": "205000",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_624020-MLA51364394844_082022-W.jpg",
     "id": 1
   },
   {
-    "nombre": "aire acondicionado",
-    "marca": "Philco",
-    "precio": 150900,
-    "imagen": "https://uiseros--46224.jpg?v=636383732923400000",
+    "nombre": "laptop ",
+    "marca": "HP",
+    "precio": "200100",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_901226-MLA51145741216_082022-V.jpg",
     "id": 2
   },
   {
-    "nombre": "licuadora",
-    "marca": "liqueitor",
-    "precio": 10200,
-    "imagen": "https://http2.mlstatic.com/D_NQ_NP_765860-MLA42858337222_072020-V.jpg",
+    "nombre": "Mochila escolar",
+    "marca": "adidas",
+    "precio": "10450",
+    "image": "https://d3ugyf2ht6aenh.cloudfront.net/stores/824/567/products/ga0500045441-f65ffa3eebcc6bedb816437583533066-1024-1024.jpg",
     "id": 3
   },
   {
-    "nombre": "play stations",
-    "marca": "sony",
-    "precio": 350000,
-    "imagen": "http//imagen/tiendaapp/playstation/fravega.pnj",
+    "nombre": "zapatillas",
+    "marca": "newbalance ",
+    "precio": "21000",
+    "image": "https://s3.sa-east-1.amazonaws.com/www.vaypol.com.ar/variants/brqwyhljobw21pmczpg5zwm7wh8h/fcee8794f20400056d5dc5d6d2a3cd3e6f6f923cefbc9c0ce369923e8a949cbf",
     "id": 4
   },
   {
-    "nombre": "televisor",
-    "marca": "samsung",
-    "precio": 54000,
-    "imagen": "https://smasungtelevisor-0000-DIA-1-Kg-_1.jpg?v=637699739334400000",
+    "nombre": "auriculares gamer",
+    "marca": "logitech G773",
+    "precio": "27899",
+    "image": "https://mexx-img-2019.s3.amazonaws.com/auricular-inalambrico_41154_1.jpeg",
     "id": 5
   },
   {
-    "nombre": "ventilador",
-    "marca": "atma",
-    "precio": 53000,
-    "imagen": "http//imagen/tiendaapp/ventiladorl/fravega.pnj",
+    "nombre": "lavarropas",
+    "marca": "dream",
+    "precio": "75000",
+    "image": "https://hendel-r7d8odghj1.stackpathdns.com/media/catalog/product/cache/0c3e9ac8430b5a3e77d1544ae1698a10/1/0/101132a.jpg",
     "id": 6
   },
   {
-    "nombre": "termo",
-    "marca": "stanley",
-    "precio": 43000,
-    "imagen": "http//imagen/tiendaapp/termo/fravega.pnj",
+    "nombre": "televisor",
+    "marca": "smart TV",
+    "precio": "70400",
+    "image": "https://medias.musimundo.com/medias/00541024-146134-146134-01-146134-01.jpg-size300?context=bWFzdGVyfGltYWdlc3wzNDIxNHxpbWFnZS9qcGVnfGgwNi9oZmEvMTAzODcxMTcyMTE2NzgvMDA1NDEwMjQtMTQ2MTM0LTE0NjEzNF8wMS0xNDYxMzRfMDEuanBnX3NpemUzMDB8NWIxNGZjNzIzNGVmMjUyYTNkMWI5NjYyYmVmNmE3MDg3MjFlMmJiNjExYjgxYzk5Zjg0MTg3M2YzNjRjZjI1Ng",
     "id": 7
   },
   {
-    "nombre": "ventilador",
-    "marca": "atma",
-    "precio": 53000,
-    "imagen": "http//imagen/tiendaapp/ventiladorl/fravega.pnj",
-    "id": 9
+    "nombre": "heladera",
+    "marca": "dream",
+    "precio": "85000",
+    "image": "https://www.lg.com/ar/images/heladeras/md06176419/md06176419-350x350.jpg",
+    "id": 8
   }
 ]
