@@ -54,5 +54,33 @@
     "precio": "85000",
     "image": "https://www.lg.com/ar/images/heladeras/md06176419/md06176419-350x350.jpg",
     "id": 8
+  },
+  {
+    "nombre": "Campera Parka",
+    "marca": "Mountain",
+    "precio": "40000",
+    "image": "https://d3ugyf2ht6aenh.cloudfront.net/stores/001/942/122/products/campera-parka-21-9e752014a841e2d2e916442456209748-1024-1024.png",
+    "id": 9
+  },
+  {
+    "nombre": "playstation",
+    "marca": "sony",
+    "precio": "340000",
+    "image": "https://arsonyb2c.vtexassets.com/arquivos/ps5.png",
+    "id": 10
+  },
+  {
+    "nombre": "licuadora ",
+    "marca": "philip",
+    "precio": "20000",
+    "image": "https://www.liliana.com.ar/wp-content/uploads/2017/02/AL100-web.jpg",
+    "id": 11
+  },
+  {
+    "nombre": "pelota",
+    "marca": "adidas",
+    "precio": "12356",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_874847-MLA49566978164_042022-V.jpg",
+    "id": 12
   }
 ]

@@ -1,8 +1,10 @@
 import { Router } from "express";
 import Contenedor from "../contenedor.js";
+import __dirname from "../utils.js";
 
 const router = Router();
-const usuario = new Contenedor('eduardo');
+const ruta = __dirname+'/productos.json';
+const usuario = new Contenedor(ruta);
 
 router.get('/',(req,res)=>{
     res.render('pages/home')
@@ -15,8 +17,11 @@ router.post('/datos',async(req,res)=>{
 });
 
 router.get('/productos',async(req,res)=>{
-    const baseDatos = await usuario.getAll();//traigo los datos guardados en el JSON.
-    res.render('pages/products',{baseDatos});//envio los datos a la carpeta de views.
+    res.render('pages/products');//envio los datos a la carpeta de views.
 });
+
+router.get('/cliente',(req,res)=>{
+    res.render('pages/cliente')
+})
 
 export default router;

@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="./style/style.css">
+    <title>Atencion al Cliente</title>
+</head>
+<body>
+    <nav class="container-navbar">
+        <ul class="list-menu">
+            <li>
+                <a href="/">formulario</a>
+            </li>
+            <li>
+                <a href="/productos">productos</a>
+            </li>
+            <li>
+                <a href="/cliente">Servicios</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- <div >
+        <h1 class="title-pages">Atencion al cliente</h1>
+        
+    </div> -->
+    <div class="container-chat">
+        <div class="container-perfil">
+            <div>
+                <p id="perfil-usuario">Usuario</p>
+            </div>
+            <div>
+                <img src="https://img.icons8.com/ios-glyphs/40/null/live-video-on--v2.png"/>
+            </div>
+            <div>
+                <img src="https://img.icons8.com/ios-glyphs/40/null/phone--v1.png"/>
+            </div>
+            <div>
+                <img src="https://img.icons8.com/material-rounded/40/000000/menu-2.png"/>
+            </div>
+        </div>
+        <div class="container-message" id="text-message" >
+            <!-- inyectan los mensajes -->
+        </div>
+        <div class="container-input">
+            <div>
+                <img src="https://img.icons8.com/material-sharp/40/null/batman-emoji.png"/>
+            </div>
+            <div>
+                <input type="text" id="inputChat">  
+            </div>
+            <div>
+                <img src="https://img.icons8.com/ios-glyphs/40/null/camera--v1.png"/>
+            </div>
+            <div>
+                <img src="https://img.icons8.com/material-sharp/40/null/microphone--v1.png"/>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- conecto mi cliente con js   -->
+    <script src="/js/cliente.js"></script>
+</body>
+</html>
