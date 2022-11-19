@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "time": "Sat Nov 19 2022",
+    "cart": [
+      {
+        "id": 1,
+        "cantidad": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "time": "Sat Nov 19 2022",
+    "cart": [
+      {
+        "id": 16,
+        "cantidad": 2
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "time": "Sat Nov 19 2022",
+    "cart": []
+  }
+]

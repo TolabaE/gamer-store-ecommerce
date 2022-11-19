@@ -1,11 +1,11 @@
 import express from 'express';
-import routerproductos from './router/productos.routes.js';
+import routerviews from './router/views.routes.js';
+import apiProductsRouter from './router/api.products.routes.js';
+import apiCartsRouter from './router/api.cart.routes.js';
 import __dirname from './utils.js';
 import { Server } from 'socket.io';
-import Contenedor from './contenedor.js';
-import moment from "moment";
+import Contenedor from './containers/container.js';
 
-let fecha = moment()
 const app = express();
 const server = app.listen(8080,()=>console.log('listening to server'));
 
@@ -17,13 +17,15 @@ app.use(express.json()); // Especifica que podemos recibir json
 app.use(express.urlencoded({ extended:true })); // Habilita poder procesar y parsear datos más complejos en la url
 
 app.use(express.static(__dirname + "/public"));//hace publico los archivos que estan en la carpeta para entrar de manera directa.
-app.use('/',routerproductos);
+app.use('/',routerviews);
+app.use('/api/products',apiProductsRouter);
+app.use('/api/cart',apiCartsRouter);
 
 //conectamos nuestro servidor con el servidor de io.
 const io = new Server(server);
 //creo una nuevo construuctor y apartir de alli traigo los archivos que estan en mi array.
-const archivo = new Contenedor(__dirname+'/productos.json');
-const conversacion = new Contenedor(__dirname+'/historial.json');
+const archivo = new Contenedor(__dirname+'/json/productos.json');
+const conversacion = new Contenedor(__dirname+'/json/historial.json');
 
 
 io.on('connection',async(socket)=>{

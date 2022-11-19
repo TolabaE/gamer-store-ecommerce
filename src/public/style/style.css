@@ -50,8 +50,22 @@ body{
 }
 .container-navbar{
     background-color:#a85311;
-    padding: 25px;
-    
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.container-log{
+    font-size: 36px;
+    font-weight: 800;
+}
+.log-pag{
+    color: black;
+    background-color: white;
+}
+.container-log span {
+    background-color: red;
+    color: blue;
 }
 .list-menu{
     list-style-type: none;

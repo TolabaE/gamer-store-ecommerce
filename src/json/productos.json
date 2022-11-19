@@ -3,20 +3,23 @@
     "nombre": "pc gamer ",
     "marca": "ryzen",
     "precio": "205000",
+    "stock": 30,
     "image": "https://http2.mlstatic.com/D_NQ_NP_624020-MLA51364394844_082022-W.jpg",
     "id": 1
   },
   {
-    "nombre": "laptop ",
-    "marca": "HP",
-    "precio": "200100",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_901226-MLA51145741216_082022-V.jpg",
+    "nombre": "Tablet Gamers",
+    "marca": "Elexus",
+    "precio": 38999,
+    "stock": 10,
+    "image": "https://img.joomcdn.net/57aeeacbf8f8e7ffc090e40219672f1c29f94847_original.jpeg",
     "id": 2
   },
   {
     "nombre": "Mochila escolar",
     "marca": "adidas",
-    "precio": "10450",
+    "precio": 10450,
+    "stock": 12,
     "image": "https://d3ugyf2ht6aenh.cloudfront.net/stores/824/567/products/ga0500045441-f65ffa3eebcc6bedb816437583533066-1024-1024.jpg",
     "id": 3
   },
@@ -24,6 +27,7 @@
     "nombre": "zapatillas",
     "marca": "newbalance ",
     "precio": "21000",
+    "stock": 40,
     "image": "https://s3.sa-east-1.amazonaws.com/www.vaypol.com.ar/variants/brqwyhljobw21pmczpg5zwm7wh8h/fcee8794f20400056d5dc5d6d2a3cd3e6f6f923cefbc9c0ce369923e8a949cbf",
     "id": 4
   },
@@ -38,6 +42,7 @@
     "nombre": "lavarropas",
     "marca": "dream",
     "precio": "75000",
+    "stock": 40,
     "image": "https://hendel-r7d8odghj1.stackpathdns.com/media/catalog/product/cache/0c3e9ac8430b5a3e77d1544ae1698a10/1/0/101132a.jpg",
     "id": 6
   },
@@ -45,6 +50,7 @@
     "nombre": "televisor",
     "marca": "smart TV",
     "precio": "70400",
+    "stock": 20,
     "image": "https://medias.musimundo.com/medias/00541024-146134-146134-01-146134-01.jpg-size300?context=bWFzdGVyfGltYWdlc3wzNDIxNHxpbWFnZS9qcGVnfGgwNi9oZmEvMTAzODcxMTcyMTE2NzgvMDA1NDEwMjQtMTQ2MTM0LTE0NjEzNF8wMS0xNDYxMzRfMDEuanBnX3NpemUzMDB8NWIxNGZjNzIzNGVmMjUyYTNkMWI5NjYyYmVmNmE3MDg3MjFlMmJiNjExYjgxYzk5Zjg0MTg3M2YzNjRjZjI1Ng",
     "id": 7
   },
@@ -52,6 +58,7 @@
     "nombre": "heladera",
     "marca": "dream",
     "precio": "85000",
+    "stock": 6,
     "image": "https://www.lg.com/ar/images/heladeras/md06176419/md06176419-350x350.jpg",
     "id": 8
   },
@@ -59,6 +66,7 @@
     "nombre": "Campera Parka",
     "marca": "Mountain",
     "precio": "40000",
+    "stock": 8,
     "image": "https://d3ugyf2ht6aenh.cloudfront.net/stores/001/942/122/products/campera-parka-21-9e752014a841e2d2e916442456209748-1024-1024.png",
     "id": 9
   },
@@ -66,21 +74,52 @@
     "nombre": "playstation",
     "marca": "sony",
     "precio": "340000",
+    "stock": 18,
     "image": "https://arsonyb2c.vtexassets.com/arquivos/ps5.png",
     "id": 10
   },
   {
-    "nombre": "licuadora ",
-    "marca": "philip",
-    "precio": "20000",
-    "image": "https://www.liliana.com.ar/wp-content/uploads/2017/02/AL100-web.jpg",
-    "id": 11
+    "nombre": "Cocina",
+    "marca": "wirlpool",
+    "precio": 125000,
+    "stock": 15,
+    "image": "https://whirlpoolarg.vteximg.com.br/arquivos/ids/162615-1000-1000/perspectiva02-min.jpg?v=637813104308200000",
+    "id": 14
   },
   {
-    "nombre": "pelota",
-    "marca": "adidas",
-    "precio": "12356",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_874847-MLA49566978164_042022-V.jpg",
-    "id": 12
+    "nombre": "Teclado Gamer",
+    "marca": "Gadnic",
+    "precio": "8300",
+    "stock": 12,
+    "image": "https://www.bidcom.com.ar/publicacionesML/productos/GAMER009/1000x1000-GAMER009.jpg",
+    "id": 15
+  },
+  {
+    "nombre": "Silla Gamer",
+    "marca": "Micro",
+    "precio": 68340,
+    "stock": 10,
+    "image": "https://tecnocompro.com/pub/media/catalog/product/cache/f2fda30fa08589bc3d50957538fec3cf/b/u/butaca_silla_gamer_micro_y-2410_black_blue.png",
+    "id": 16
+  },
+  {
+    "nombre": "Cocina",
+    "marca": "wirlpool",
+    "precio": 125000,
+    "image": "https://whirlpoolarg.vteximg.com.br/arquivos/ids/162615-1000-1000/perspectiva02-min.jpg?v=637813104308200000",
+    "stock": 21,
+    "id": 18,
+    "code": 4053788,
+    "timestamp": "2022-11-19T22:32:19.239Z"
+  },
+  {
+    "nombre": "Cocina",
+    "marca": "wirlpool",
+    "precio": 125000,
+    "image": "https://whirlpoolarg.vteximg.com.br/arquivos/ids/162615-1000-1000/perspectiva02-min.jpg?v=637813104308200000",
+    "stock": 21,
+    "id": 19,
+    "code": 3869305,
+    "timestamp": "2022-11-19T22:38:08.187Z"
   }
 ]
