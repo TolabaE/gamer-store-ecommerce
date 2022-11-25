@@ -13,10 +13,10 @@ const producto = new Contenedor(ruta);
 router.get('/:idCart',async(req,res)=>{
     const {idCart} = req.params;
     const cart = await carrito.getCartById(idCart);
-    if (cart != true) {
-        res.send({status:"success",payload:cart})
+    if (cart == false) {
+        res.send({status:"error",error:`There is no cart with ID:${idCart}`});
     }else{
-        res.send({status:"error",error:`There is no product with that ID:${idCart}`});
+        res.send({status:"success",payload:cart})
     }
 })
 //crea un nuevo carrito y me devuelve el ID que le fue asignado.

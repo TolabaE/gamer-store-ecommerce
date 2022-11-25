@@ -4,7 +4,11 @@ import apiProductsRouter from './router/api.products.routes.js';
 import apiCartsRouter from './router/api.cart.routes.js';
 import __dirname from './utils.js';
 import { Server } from 'socket.io';
-import Contenedor from './containers/container.js';
+// import Contenedor from './containers/container.js';
+import mySQLRouter from './router/product.sqlite3.routes.js';
+import ContainerSQL from './containers/containerSqlite.js';
+import db from './data/knex.js';//importo la base de datos para trabajar.
+
 
 const app = express();
 const server = app.listen(8080,()=>console.log('listening to server'));
@@ -20,26 +24,40 @@ app.use(express.static(__dirname + "/public"));//hace publico los archivos que e
 app.use('/',routerviews);
 app.use('/api/products',apiProductsRouter);
 app.use('/api/cart',apiCartsRouter);
+app.use('/sqlite/products',mySQLRouter);
+
 
 //conectamos nuestro servidor con el servidor de io.
 const io = new Server(server);
 //creo una nuevo construuctor y apartir de alli traigo los archivos que estan en mi array.
-const archivo = new Contenedor(__dirname+'/json/productos.json');
-const conversacion = new Contenedor(__dirname+'/json/historial.json');
+// const archivo = new Contenedor(__dirname+'/json/productos.json');
+// const conversacion = new Contenedor(__dirname+'/json/historial.json');
 
+//llamo al constructor de sqlite,para que el chats se guarde en la base de datos.
+const containerSqliteChats = new ContainerSQL(db,'chats');
+const containerSqliteProducts = new ContainerSQL(db,'products');
 
+//para ver el historial del chats de la base de datos sqlite3.
+app.get('/sqlite/chats',async(req,res)=>{
+    const chat = await containerSqliteChats.getAll();
+    res.send(chat)
+})
 io.on('connection',async(socket)=>{
     console.log('socket connected');
 
-    const data = await archivo.getAll();//lee los archivos que estan en el JSON.
+    // const data = await archivo.getAll();//lee los archivos que estan en el JSON.
+    const data = await containerSqliteProducts.getAll();//lee los archivos que estan en la base de datos.
     io.emit('arrayProductos',data);//emito el JSON al servidor para que lo vean todos
 
-    const historial = await conversacion.getAll();//llamo el historial de chats de lo que habia
+    // const historial = await conversacion.getAll();//llamo el historial de chats de lo que habia
+    const historial = await containerSqliteChats.getAll();//trae el historial de chats que esta en la base de datos sqlite3.
     socket.emit('arraychats',historial);
 
     socket.on('message',async(data)=>{//recibo el mensaje que me enviaron.
-        await conversacion.save(data); //guardo en mi json.
-        const chats = await conversacion.getAll();// llamo mi historial de chat
+        // await conversacion.save(data); //guardo en mi json.
+        // const chats = await conversacion.getAll();// llamo mi historial de chat
+        await containerSqliteChats.save(data);
+        const chats = await containerSqliteChats.getAll();
         io.emit('arraychats',chats);
     })
     socket.on('registrado',user=>{

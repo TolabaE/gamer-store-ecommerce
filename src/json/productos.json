@@ -26,7 +26,7 @@
   {
     "nombre": "zapatillas",
     "marca": "newbalance ",
-    "precio": "21000",
+    "precio":21000,
     "stock": 40,
     "image": "https://s3.sa-east-1.amazonaws.com/www.vaypol.com.ar/variants/brqwyhljobw21pmczpg5zwm7wh8h/fcee8794f20400056d5dc5d6d2a3cd3e6f6f923cefbc9c0ce369923e8a949cbf",
     "id": 4
@@ -34,30 +34,22 @@
   {
     "nombre": "auriculares gamer",
     "marca": "logitech G773",
-    "precio": "27899",
+    "precio":27899,
     "image": "https://mexx-img-2019.s3.amazonaws.com/auricular-inalambrico_41154_1.jpeg",
     "id": 5
   },
   {
     "nombre": "lavarropas",
     "marca": "dream",
-    "precio": "75000",
+    "precio": 75000,
     "stock": 40,
     "image": "https://hendel-r7d8odghj1.stackpathdns.com/media/catalog/product/cache/0c3e9ac8430b5a3e77d1544ae1698a10/1/0/101132a.jpg",
     "id": 6
   },
   {
-    "nombre": "televisor",
-    "marca": "smart TV",
-    "precio": "70400",
-    "stock": 20,
-    "image": "https://medias.musimundo.com/medias/00541024-146134-146134-01-146134-01.jpg-size300?context=bWFzdGVyfGltYWdlc3wzNDIxNHxpbWFnZS9qcGVnfGgwNi9oZmEvMTAzODcxMTcyMTE2NzgvMDA1NDEwMjQtMTQ2MTM0LTE0NjEzNF8wMS0xNDYxMzRfMDEuanBnX3NpemUzMDB8NWIxNGZjNzIzNGVmMjUyYTNkMWI5NjYyYmVmNmE3MDg3MjFlMmJiNjExYjgxYzk5Zjg0MTg3M2YzNjRjZjI1Ng",
-    "id": 7
-  },
-  {
     "nombre": "heladera",
     "marca": "dream",
-    "precio": "85000",
+    "precio": 85000,
     "stock": 6,
     "image": "https://www.lg.com/ar/images/heladeras/md06176419/md06176419-350x350.jpg",
     "id": 8
@@ -65,7 +57,7 @@
   {
     "nombre": "Campera Parka",
     "marca": "Mountain",
-    "precio": "40000",
+    "precio": 40000,
     "stock": 8,
     "image": "https://d3ugyf2ht6aenh.cloudfront.net/stores/001/942/122/products/campera-parka-21-9e752014a841e2d2e916442456209748-1024-1024.png",
     "id": 9
@@ -73,7 +65,7 @@
   {
     "nombre": "playstation",
     "marca": "sony",
-    "precio": "340000",
+    "precio": 340000,
     "stock": 18,
     "image": "https://arsonyb2c.vtexassets.com/arquivos/ps5.png",
     "id": 10
@@ -89,7 +81,7 @@
   {
     "nombre": "Teclado Gamer",
     "marca": "Gadnic",
-    "precio": "8300",
+    "precio": 8300,
     "stock": 12,
     "image": "https://www.bidcom.com.ar/publicacionesML/productos/GAMER009/1000x1000-GAMER009.jpg",
     "id": 15
@@ -113,13 +105,11 @@
     "timestamp": "2022-11-19T22:32:19.239Z"
   },
   {
-    "nombre": "Cocina",
-    "marca": "wirlpool",
-    "precio": 125000,
-    "image": "https://whirlpoolarg.vteximg.com.br/arquivos/ids/162615-1000-1000/perspectiva02-min.jpg?v=637813104308200000",
-    "stock": 21,
-    "id": 19,
-    "code": 3869305,
-    "timestamp": "2022-11-19T22:38:08.187Z"
+    "nombre": "Horno electrico",
+    "marca": "Marshall",
+    "precio": 31999,
+    "image": "https://megatonedigital.vteximg.com.br/arquivos/ids/157152-1000-1000/138257_01.jpg?v=637902541185700000",
+    "stock": 12,
+    "id": 19
   }
 ]

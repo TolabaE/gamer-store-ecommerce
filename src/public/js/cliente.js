@@ -42,7 +42,7 @@ socket.on('arraychats',datos=>{
                 </div>`
     });
     linetext.innerHTML = msg;
-    linetext.scrollTop= linetext.scrollHeight;
+    linetext.scrollTop= linetext.scrollHeight;//esta codigo permite que me valla tirando los mensajes para abajo sin tener que escrolear.
 })
 
 socket.on('newuser',user=>{

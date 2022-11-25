@@ -65,7 +65,7 @@ body{
 }
 .container-log span {
     background-color: red;
-    color: blue;
+    color: white;
 }
 .list-menu{
     list-style-type: none;

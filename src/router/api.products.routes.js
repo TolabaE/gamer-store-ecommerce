@@ -5,7 +5,7 @@ import Contenedor from "../containers/container.js";
 const path = __dirname+'/json/productos.json';
 const usuario = new Contenedor(path);
 const router = Router();
-const admi = true;
+const admi = false;
 
 
 router.get('/',async(req,res)=>{
@@ -48,7 +48,7 @@ router.put('/:id',async(req,res)=>{
     const newObjet = req.body;
     const state = await usuario.updateById(id,newObjet);
     if (state === true){
-        res.send({status:`el producto con ID:${id} fue actualizado`,payload:newObjet});
+        res.send({status:"success",payload:`el producto con ID:${id} fue actualizado`});
     }else{
         res.send({status:'error',error:`no existe un producto con el ID:${id} a actualizar.`});
     }
