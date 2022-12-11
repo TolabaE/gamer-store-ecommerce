@@ -9,7 +9,7 @@ const containerdiv = document.getElementById('box-products');
 //         name:formDate[0].value,
 //         name:formDate[1].value,
 //         name:formDate[2].value,
-//     }//otro metodo para guardar un producto.
+//     }//otro metodo para guardar un producto los datos traidos de un form.
 // })
 
 socket.on('arrayProductos',productos=>{

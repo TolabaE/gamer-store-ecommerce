@@ -1,6 +1,6 @@
 "use strict";
 import fs from 'fs';
-const fecha = new Date()
+
 class Contenedor{
     constructor(direction){
         this.direction = direction;
@@ -29,7 +29,7 @@ class Contenedor{
         }else {
             objeto.id = 1;
         }
-        objeto.code = parseInt(Math.random()*10000000),
+        objeto.code = Math.floor(Math.random()*10000000);
         objeto.timestamp = new Date();
         array.push(objeto);
         await fs.promises.writeFile(this.direction,JSON.stringify(array,null,2))
@@ -42,12 +42,9 @@ class Contenedor{
     //este codigo nos devuelve un producto que sea igual al ID que nos enviaron o retorna null si no lo encuentra.
     getById=async(numeroId)=>{
         const arraydatos = await this.readFile();
-        const state= await this.existsFile(numeroId)
-        if (state === true) {
-            return arraydatos.find(prod=>prod.id===parseInt(numeroId));//el metodo find busca el producto con ese ID.
-        }else{
-            return null;
-        }
+        const state = await this.existsFile(numeroId);//retorna true o false
+        if (state == true) return arraydatos.find(prod=>prod.id===parseInt(numeroId));//el metodo find busca el producto con ese ID.
+        else return null;
     }
     //elimina un producto del JSON si lo encuentra,si no lo encuentra retorna null.
     deleteById=async(deleteId)=>{

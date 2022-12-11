@@ -19,14 +19,14 @@
     "nombre": "Mochila escolar",
     "marca": "adidas",
     "precio": 10450,
-    "stock": 12,
+    "stock": 25,
     "image": "https://d3ugyf2ht6aenh.cloudfront.net/stores/824/567/products/ga0500045441-f65ffa3eebcc6bedb816437583533066-1024-1024.jpg",
     "id": 3
   },
   {
     "nombre": "zapatillas",
     "marca": "newbalance ",
-    "precio":21000,
+    "precio": 21000,
     "stock": 40,
     "image": "https://s3.sa-east-1.amazonaws.com/www.vaypol.com.ar/variants/brqwyhljobw21pmczpg5zwm7wh8h/fcee8794f20400056d5dc5d6d2a3cd3e6f6f923cefbc9c0ce369923e8a949cbf",
     "id": 4
@@ -34,7 +34,8 @@
   {
     "nombre": "auriculares gamer",
     "marca": "logitech G773",
-    "precio":27899,
+    "precio": 27899,
+    "stock": 20,
     "image": "https://mexx-img-2019.s3.amazonaws.com/auricular-inalambrico_41154_1.jpeg",
     "id": 5
   },
@@ -50,17 +51,9 @@
     "nombre": "heladera",
     "marca": "dream",
     "precio": 85000,
-    "stock": 6,
+    "stock": 15,
     "image": "https://www.lg.com/ar/images/heladeras/md06176419/md06176419-350x350.jpg",
     "id": 8
-  },
-  {
-    "nombre": "Campera Parka",
-    "marca": "Mountain",
-    "precio": 40000,
-    "stock": 8,
-    "image": "https://d3ugyf2ht6aenh.cloudfront.net/stores/001/942/122/products/campera-parka-21-9e752014a841e2d2e916442456209748-1024-1024.png",
-    "id": 9
   },
   {
     "nombre": "playstation",
@@ -68,14 +61,6 @@
     "precio": 340000,
     "stock": 18,
     "image": "https://arsonyb2c.vtexassets.com/arquivos/ps5.png",
-    "id": 10
-  },
-  {
-    "nombre": "Cocina",
-    "marca": "wirlpool",
-    "precio": 125000,
-    "stock": 15,
-    "image": "https://whirlpoolarg.vteximg.com.br/arquivos/ids/162615-1000-1000/perspectiva02-min.jpg?v=637813104308200000",
     "id": 14
   },
   {
@@ -111,5 +96,15 @@
     "image": "https://megatonedigital.vteximg.com.br/arquivos/ids/157152-1000-1000/138257_01.jpg?v=637902541185700000",
     "stock": 12,
     "id": 19
+  },
+  {
+    "nombre": "procesador RYZEN ",
+    "marca": "AMD",
+    "precio": 1899,
+    "stock": 30,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuUuNAj73iZ1i_DHonvnUG7uZo5HA3pRyXVg&usqp=CAU",
+    "id": 20,
+    "code": 2082359,
+    "timestamp": 1670554474362
   }
 ]

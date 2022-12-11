@@ -1,6 +1,6 @@
 import { Router } from "express";
 import db from "../data/knex.js";
-import ContainerSQL from "../containers/containerSqlite.js";
+import ContainerSQL from "../daos/containerSqlite.js";
 
 const containerSqlite = new ContainerSQL(db,'products');
 const fecha = new Date().toDateString();
