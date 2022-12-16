@@ -29,6 +29,7 @@ class Contenedor{
         }else {
             objeto.id = 1;
         }
+        objeto.precio = parseInt(objeto.precio);
         objeto.code = Math.floor(Math.random()*10000000);
         objeto.timestamp = new Date();
         array.push(objeto);

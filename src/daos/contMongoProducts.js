@@ -1,4 +1,5 @@
 'use strict';
+// const fecha = new Date().toDateString();es otra forma de crear datos de una fecha.
 
 class ContainerMongoProducts {
     constructor(mongoModel){
@@ -16,7 +17,7 @@ class ContainerMongoProducts {
     save=async(objeto)=>{
         objeto.code = Math.floor(Math.random()*10000000);
         objeto.timestamp = new Date();
-        await this.collection.create(objeto);//esto haay que verificar si anda sin crear el la clave en el modelo/esquema
+        await this.collection.create(objeto);//esto haay que verificar si anda sin crear la clave en el modelo/esquema
     }
     //actualiza un producto por ID del producto y recibe un nuevo objeto. 
     updateById=async(id,newobject)=>{

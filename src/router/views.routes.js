@@ -1,12 +1,10 @@
 import { Router } from "express";
 import ContainerDAOs from "../daos/index.js";
-
+import arrayFaker from "../mocks/mock.js";
 
 const router = Router();
 const {ManagerProduct} = ContainerDAOs;
 
-
-const fecha = new Date().toDateString();
 
 router.get('/',(req,res)=>{
     res.render('pages/home')
@@ -22,10 +20,14 @@ router.get('/productos',async(req,res)=>{
 
 router.post('/datos',async(req,res)=>{
     const producto = req.body;
-    producto.precio=parseInt(producto.precio);//parse a numero el precio que recibo por el formulario que esta en la vista de home.
-    producto.data = fecha;// agrego la fecha .
     await ManagerProduct.save(producto);
     res.redirect('/');
 });
+
+//creo la vista para trabajar con productos creados con faker
+router.get('/test',(req,res)=>{
+    res.send({status:'success',payload:arrayFaker});
+})
+
 
 export default router;

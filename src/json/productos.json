@@ -32,7 +32,7 @@
     "id": 4
   },
   {
-    "nombre": "auriculares gamer",
+    "nombre": "auricular gamer",
     "marca": "logitech G773",
     "precio": 27899,
     "stock": 20,
@@ -98,7 +98,7 @@
     "id": 19
   },
   {
-    "nombre": "procesador RYZEN ",
+    "nombre": "cpu RYZEN",
     "marca": "AMD",
     "precio": 1899,
     "stock": 30,

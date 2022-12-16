@@ -12,6 +12,7 @@ const containerdiv = document.getElementById('box-products');
 //     }//otro metodo para guardar un producto los datos traidos de un form.
 // })
 
+//los datos son enviados del lado del servidor y aqui los hago un mapeo para mostrarle en el DOM.
 socket.on('arrayProductos',productos=>{
     let arreglo = ""
     productos.forEach(item => {
@@ -22,6 +23,7 @@ socket.on('arrayProductos',productos=>{
             <div class="container-detail">
                 <h3>${item.nombre}</h3>
                 <p>marca: ${item.marca}</p>
+                <p>stock: ${item.stock} unidades</p>
                 <h4>$${item.precio}</h4>
             </div>
         </div>`

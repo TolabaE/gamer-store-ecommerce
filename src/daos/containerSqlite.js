@@ -2,6 +2,7 @@
 import knex from "knex";
 
 class ContainerSQL {
+    //recibe dos parametros la tabla con la que va a trabajar y la base datos.
     constructor(database,table){
         this.knex = knex(database);
         this.table = table ;

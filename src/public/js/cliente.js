@@ -3,30 +3,41 @@ const socket = io({autoConnect:false});
 const inputMessage = document.getElementById('inputChat');
 const linetext = document.getElementById('text-message');
 const perfil = document.getElementById('perfil-usuario');
-let usuario 
+const modalForm = document.getElementById('formDataModal');
 
-Swal.fire({
-    title: 'Registrate',
-    input: 'text',
-    text:'ingrese su nombre de usuario',
-    inputValidator:(value)=>{
-        return !value && '¡necesitas ingresar con un nombre!'
-    },
-    allowOutsideClick:false,
-    allowEscapeKey:false,
-}).then(result=>{//capturo el valor que me envia el sweetalert.  
-    usuario = result.value;
+let usuario = "";
+
+modalForm.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const formdata = new FormData(e.target);
+    const data = {
+        id:formdata.get('email'),
+        nombre:formdata.get('nombre'),
+        apellido:formdata.get('apellido'),
+        edad:formdata.get('edad'),
+        alias: formdata.get('alias'),
+        avatar:formdata.get('avatar'),
+    }
     socket.connect();
-    perfil.innerHTML = usuario;
-    socket.emit('registrado',usuario);
-});
+    // modalForm.reset()//limpia los contenido que tenian los input.
+    usuario = data;
+})
+
 
 const hora = new Date().toLocaleTimeString();
 inputMessage.addEventListener('keyup',event=>{
     if (event.key === "Enter") {
+        if (!usuario) {
+            Swal.fire({
+                // html:`` es para hacer un formulario en el swetalert
+                icon: 'error',
+                title: 'Registrate',
+                text: 'No estas identificado con ningun usuario',
+            })
+        }
         const value = inputMessage.value.trim();
         if (value.length>0) {
-            socket.emit('message',{usuario,mensaje:value,time:hora});//envio el mensaje al servidor
+            socket.emit('message',{author:usuario,text:value});//envio el mensaje al servidor
             inputMessage.value = "";
         }
     }
@@ -34,16 +45,17 @@ inputMessage.addEventListener('keyup',event=>{
 
 
 socket.on('arraychats',datos=>{
+    console.log(datos);
     let msg ="";
-    datos.forEach(receptor => {
-        msg += `<div class="p-chat">
-                    <p>${receptor.usuario}:${receptor.mensaje}</p>
-                    <p class="time">${receptor.time}</p>
-                </div>`
-    });
+    msg += `<div class="p-chat">
+                <p>${datos}}</p>
+            </div>`
     linetext.innerHTML = msg;
     linetext.scrollTop= linetext.scrollHeight;//esta codigo permite que me valla tirando los mensajes para abajo sin tener que escrolear.
+    // perfil.innerHTML = datos.entities.usuario.nombre
 })
+
+//<p class="time">${datos.mensajes}</p> este fragmento va en el chat me muestra la hora .
 
 socket.on('newuser',user=>{
     Toastify({
@@ -54,3 +66,20 @@ socket.on('newuser',user=>{
         },
     }).showToast();
 })
+
+
+// Swal.fire({
+//     title: 'Registrate',
+//     input: 'text',
+//     text:'ingrese su nombre de usuario',
+//     inputValidator:(value)=>{
+//         return !value && '¡necesitas ingresar con un nombre!'
+//     },
+//     allowOutsideClick:false,
+//     allowEscapeKey:false,
+// }).then(result=>{//capturo el valor que me envia el sweetalert.  
+//     usuario = result.value;
+//     socket.connect();
+//     perfil.innerHTML = usuario;
+//     socket.emit('registrado',usuario);
+// });

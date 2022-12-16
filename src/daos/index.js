@@ -9,7 +9,7 @@ import cartModel from "../models/cart.js";
 
 
 //aqui escribimos la persistencia que queremos usar ya se Filesistem o mongoose;
-let persistencia = 'filesistem';
+let persistencia = 'mongoose';
 
 let ManagerProduct
 let ManagerCart
