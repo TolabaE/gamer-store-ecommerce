@@ -9,13 +9,17 @@ import ContainerMongoChats from './daos/contMongoChats.js';
 import chatModel from './models/chats.js';
 import messagesSchema from './utils/script.js';
 import { normalize } from 'normalizr';
+//importamos estos paquetes para poder crear nuestra session.
+import session from 'express-session';
+import MongoStore from 'connect-mongo';//nos permite concetarnos a nuestra base de mongo.
+import cookieParser from 'cookie-parser';
+//importo la ruta de la api session router para conectar con el mongo.
+import sessionRouter from './router/api.session.routes.js';
 
 
 
 const app = express();
 const PORT = process.env.PORT || 8080; // usa el puerto 8080 en caso de que no tenga uno.
-
-const server = app.listen(PORT,()=>console.log('listening to server'));
 
 // configuramos el servidor para usar la plantilla de ejs.
 app.set('views',__dirname+'/views');
@@ -24,10 +28,27 @@ app.set('view engine','ejs');
 app.use(express.json()); // Especifica que podemos recibir json
 app.use(express.urlencoded({ extended:true })); // Habilita poder procesar y parsear datos más complejos en la url
 
+// configuramos la conexion de la session con mongo atlas aqui.
+app.use(session({
+    store:MongoStore.create({
+        mongoUrl:'mongodb+srv://coderUser:123454321@codercluster0.nvobhct.mongodb.net/ecommercebase?retryWrites=true&w=majority',
+        ttl:600,
+    }),
+    secret:'awds123',
+    resave:false,
+    saveUninitialized:false,
+}))
+
+
+
 app.use(express.static(__dirname + "/public"));//hace publico los archivos que estan en la carpeta para entrar de manera directa.
 app.use('/',routerviews);
+app.use('/api/session',sessionRouter);
 app.use('/api/products',apiProductsRouter);
 app.use('/api/cart',apiCartsRouter);
+
+
+
 
 //creo una ruta donde muestro el arreglo de chats normalizados.
 app.get('/api/messages/normlizr',async(req,res)=>{
@@ -41,13 +62,14 @@ app.get('/api/messages/normlizr',async(req,res)=>{
     res.send({status:"success",payload:normalizacion});
 })
 
+const server = app.listen(PORT,()=>console.log('listening to server'));
+
 //desestructuro del DAOs.
 const {ManagerProduct} = ContainerDAOs;
 const ManagerChat = new ContainerMongoChats(chatModel);
 
 //conectamos nuestro servidor con el servidor de io.
 const io = new Server(server);
-
 
 
 io.on('connection',async(socket)=>{
@@ -75,3 +97,4 @@ io.on('connection',async(socket)=>{
     //     socket.broadcast.emit('newuser',user)
     // })
 });
+
