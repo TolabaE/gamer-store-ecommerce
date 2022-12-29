@@ -12,6 +12,8 @@ register.addEventListener('submit',(event)=>{
         headers:{'Content-type':'application/json'}
     })//podemos cachear la promesa que nos devulven del back-end.
     .then(result=>result.json())//a la promesa que nos devuelve lo vamos a pasar a json
-    .then(result=>console.log(result))//y mostrarlo en la consola.
+    .then(result=>{
+        console.log(result)
+    })//y mostrarlo en la consola.
     register.reset();
 })

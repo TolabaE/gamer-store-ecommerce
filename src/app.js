@@ -2,6 +2,7 @@ import express from 'express';
 import routerviews from './router/views.routes.js';
 import apiProductsRouter from './router/api.products.routes.js';
 import apiCartsRouter from './router/api.cart.routes.js';
+import sessionRouter from './router/api.session.routes.js';
 import __dirname from './utils.js';
 import { Server } from 'socket.io';
 import ContainerDAOs from './daos/index.js';
@@ -12,10 +13,11 @@ import { normalize } from 'normalizr';
 //importamos estos paquetes para poder crear nuestra session.
 import session from 'express-session';
 import MongoStore from 'connect-mongo';//nos permite concetarnos a nuestra base de mongo.
-import cookieParser from 'cookie-parser';
-//importo la ruta de la api session router para conectar con el mongo.
-import sessionRouter from './router/api.session.routes.js';
+// import cookieParser from 'cookie-parser';
 
+//importo el passport y el metodo de inizialicion.
+import passport from 'passport';
+import initializePassport from './config/passport.config.js';
 
 
 const app = express();
@@ -26,20 +28,22 @@ app.set('views',__dirname+'/views');
 app.set('view engine','ejs');
 
 app.use(express.json()); // Especifica que podemos recibir json
-app.use(express.urlencoded({ extended:true })); // Habilita poder procesar y parsear datos más complejos en la url
+app.use(express.urlencoded({extended:true})); // Habilita poder procesar y parsear datos más complejos en la url
 
 // configuramos la conexion de la session con mongo atlas aqui.
 app.use(session({
     store:MongoStore.create({
         mongoUrl:'mongodb+srv://coderUser:123454321@codercluster0.nvobhct.mongodb.net/ecommercebase?retryWrites=true&w=majority',
-        ttl:600,
+        ttl:120,
     }),
     secret:'awds123',
     resave:false,
     saveUninitialized:false,
 }))
 
-
+initializePassport()//inizializa las estrategias de passport.
+app.use(passport.initialize())//inizializa el corazon de passport
+app.use(passport.session())//esto le permite trabajar con el modelo de sessiones que tenga actualmente.
 
 app.use(express.static(__dirname + "/public"));//hace publico los archivos que estan en la carpeta para entrar de manera directa.
 app.use('/',routerviews);

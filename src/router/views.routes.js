@@ -13,9 +13,9 @@ router.get('/',(req,res)=>{
 })
 //muestro la vista login en el sitio
 router.get('/login',(req,res)=>{
+    // const name = req.session.user
     res.render('pages/login')
 })
-
 
 router.get('/form',(req,res)=>{
     res.render('pages/home')

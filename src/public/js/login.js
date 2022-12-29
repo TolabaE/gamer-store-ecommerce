@@ -15,6 +15,7 @@ loginForm.addEventListener('submit',(event)=>{
     })
     .then(result=>result.json())
     .then(result=> {
+        console.log(result);
         if (result.status == "success") {
             Swal.fire({
                 icon: 'success',
@@ -22,17 +23,24 @@ loginForm.addEventListener('submit',(event)=>{
                 text: `El usuario ${result.name} a iniciado session`,
             })
             loginForm.reset();
-            linkHome.innerHTML = `<a href="/form">Ir al Sitio Web</a>`
-        }else if(result.status == null){
+            linkHome.innerHTML = `<h3><a href="/form">Ir al Sitio Web</a></h3>`
+        }else if (result.status === "error"){
             Toastify({
-                text: "Datos incompletos",
-                duration: 3000
-            }).showToast();
-        }else if(result.status == false){
-            Toastify({
-                text: "el usuario o contraseña son incorrectos",
+                text: "el usuario o contraseña es incorrecto",
                 duration: 3000
             }).showToast();
         }
     })
 })
+
+// else if(result.status == null){
+//     Toastify({
+//         text: "Datos incompletos",
+//         duration: 3000
+//     }).showToast();
+// }else if(result.status == false){
+//     Toastify({
+//         text: "el email ingresado es incorrecto",
+//         duration: 3000
+//     }).showToast();
+// }

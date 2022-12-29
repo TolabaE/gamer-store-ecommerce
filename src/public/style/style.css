@@ -83,7 +83,7 @@ body{
     justify-content:space-around;
     align-items: center;
 }
-.list-menu a{
+.list-menu li a{
     text-transform: uppercase;
     text-decoration: none;
     color: beige;
@@ -91,9 +91,13 @@ body{
     padding: 8px 10px;
     border-radius: 5px;
 }
-.list-menu a:hover{
+.list-menu li a:hover{
     background-color: peru;
     color: black;
+}
+.list-menu div a{
+    color: black;
+    text-decoration: none;
 }
 .container-chat{
     margin: 20px 420px;
