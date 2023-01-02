@@ -17,13 +17,17 @@ loginForm.addEventListener('submit',(event)=>{
     .then(result=> {
         console.log(result);
         if (result.status == "success") {
+            loginForm.reset();
             Swal.fire({
                 icon: 'success',
                 title: 'Bienvenido',
                 text: `El usuario ${result.name} a iniciado session`,
+                timer:3000,
+                showConfirmButton: false,
+                timerProgressBar: true,
+            }).then(()=>{
+                window.location = "/form"
             })
-            loginForm.reset();
-            linkHome.innerHTML = `<h3><a href="/form">Ir al Sitio Web</a></h3>`
         }else if (result.status === "error"){
             Toastify({
                 text: "el usuario o contraseña es incorrecto",

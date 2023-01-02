@@ -6,6 +6,7 @@ import ContainerMongoProducts from "./contMongoProducts.js";
 import ContainerMongoCart from "./contMongoCart.js";
 import productsModel from "../models/products.js";
 import cartModel from "../models/cart.js";
+import dotenvConfig from "../config/dotenv.config.js";
 
 
 //aqui escribimos la persistencia que queremos usar ya se Filesistem o mongoose;
@@ -29,7 +30,7 @@ switch (persistencia) {
 
     case 'mongoose':
 
-        const connection = mongoose.connect('mongodb+srv://coderUser:123454321@codercluster0.nvobhct.mongodb.net/ecommercebase?retryWrites=true&w=majority',error=>{
+        const connection = mongoose.connect(`mongodb+srv://${dotenvConfig.mongo.USER}:${dotenvConfig.mongo.PWD}@codercluster0.nvobhct.mongodb.net/${dotenvConfig.mongo.DB}?retryWrites=true&w=majority`,error=>{
             if(error) console.log(error);
             else console.log('base mongoose conectada');
         });

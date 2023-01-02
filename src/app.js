@@ -10,6 +10,7 @@ import ContainerMongoChats from './daos/contMongoChats.js';
 import chatModel from './models/chats.js';
 import messagesSchema from './utils/script.js';
 import { normalize } from 'normalizr';
+import dotenvConfig from './config/dotenv.config.js';
 //importamos estos paquetes para poder crear nuestra session.
 import session from 'express-session';
 import MongoStore from 'connect-mongo';//nos permite concetarnos a nuestra base de mongo.
@@ -18,6 +19,8 @@ import MongoStore from 'connect-mongo';//nos permite concetarnos a nuestra base 
 //importo el passport y el metodo de inizialicion.
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
+//import fork de node,ya que es un modulo nativo para trabajar.
+import {fork} from 'child_process'
 
 
 const app = express();
@@ -33,10 +36,10 @@ app.use(express.urlencoded({extended:true})); // Habilita poder procesar y parse
 // configuramos la conexion de la session con mongo atlas aqui.
 app.use(session({
     store:MongoStore.create({
-        mongoUrl:'mongodb+srv://coderUser:123454321@codercluster0.nvobhct.mongodb.net/ecommercebase?retryWrites=true&w=majority',
+        mongoUrl:`mongodb+srv://${dotenvConfig.mongo.USER}:${dotenvConfig.mongo.PWD}@codercluster0.nvobhct.mongodb.net/${dotenvConfig.mongo.DB}?retryWrites=true&w=majority`,
         ttl:120,
     }),
-    secret:'awds123',
+    secret:`${dotenvConfig.session.SECRET}`,
     resave:false,
     saveUninitialized:false,
 }))
@@ -64,6 +67,30 @@ app.get('/api/messages/normlizr',async(req,res)=>{
     const chatObjet = {id:"10000",mensajes:parseo}
     const normalizacion = normalize(chatObjet,messagesSchema)//el messagesSchema lo creo en la carpeta utils, y  luego la importo para usarla aqui
     res.send({status:"success",payload:normalizacion});
+})
+
+app.get('/info',(req,res)=>{
+    const data = {
+        REPO:process.cwd(),
+        TITLE:process.title,
+        ARGV:process.argv,
+        PID:process.pid,
+        SystemOpe:process.plataform,
+        VERSION:process.version,
+        MEMORY:process.memoryUsage(),
+    }
+    res.send({status:"success",payload:data})
+})
+
+//usando un process child calculo la cantidad de numeros random que sale de acuerdo al parametro que recibo.
+app.get('/api/random/:rango',(req,res)=>{
+    const {rango} = req.params;
+    const childprocess = fork('./src/childprocess.js');
+    childprocess.send({cantidad:rango}) //envio el rango del valor al process hijo.
+    //recibo el mensaje que me envia el process hijo.
+    childprocess.on('message',value =>{
+        res.send(value)
+    });
 })
 
 const server = app.listen(PORT,()=>console.log('listening to server'));
