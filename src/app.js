@@ -21,17 +21,48 @@ import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 //import fork de node,ya que es un modulo nativo para trabajar.
 import {fork} from 'child_process'
+import addLoggers from './utils/logger.js';//importo la funcion para poder usar los distintos loggers en mi aplicativo.
+//importamos el cluster para poder trabajar.
+import minimist from 'minimist';
+import cluster from 'cluster';
+import os from 'os';
 
+//usamos minimist para poder traer los argumentos que son pasados por consola, por default se inicia en modo fork().
+const { m } = minimist(process.argv.slice(2), { default:{m: "fork"} });
 
 const app = express();
 const PORT = process.env.PORT || 8080; // usa el puerto 8080 en caso de que no tenga uno.
+const CPUs = os.cpus().length;
+
+
+//si me pasan por paramtro el nombre cluster,entonces ejecuto el servidor en modo cluster.
+if (m === "cluster") {
+	if (cluster.isPrimary) {
+		console.log(`proceso primario con pid ${process.pid}`);
+		for (let i = 0; i < CPUs; i++) {
+			cluster.fork();
+		}
+		cluster.on("exit", (worker) => {
+			console.log(`el proceso con el pid ${worker.process.pid} a finalizado`);
+			cluster.fork();
+		});
+	} else {
+		console.log(`proceso worker con pid ${process.pid}`);
+		app.listen(PORT, console.log("servidor escuchando en modo cluster"));
+	}
+	//sino por defecto si no me pasan ningun parametro ejecuto en modo fork.
+} else if (m === "fork") {
+	app.listen(PORT, console.log("servidor escuchando en modo fork"));
+}
+
 
 // configuramos el servidor para usar la plantilla de ejs.
 app.set('views',__dirname+'/views');
 app.set('view engine','ejs');
 
 app.use(express.json()); // Especifica que podemos recibir json
-app.use(express.urlencoded({extended:true})); // Habilita poder procesar y parsear datos más complejos en la url
+app.use(express.urlencoded({extended:true})); // Habilita poder procesar y parsear datos más complejos en la url,
+app.use(addLoggers);//uso la funcion como middlewear,para que este disponible en todo mi aplicativo.
 
 // configuramos la conexion de la session con mongo atlas aqui.
 app.use(session({
@@ -54,12 +85,17 @@ app.use('/api/session',sessionRouter);
 app.use('/api/products',apiProductsRouter);
 app.use('/api/cart',apiCartsRouter);
 
-
+//creo una metodo para todas aquellas consultas que se realizen a rutas inexistentes. 
+app.get('*',(req,res)=>{
+    req.logger.warn(`la ruta ${req.url} esta siendo visitada por el metodo ${req.method} y no existe.`);
+    res.send({status:"error",error:"la ruta que usted esta visitando no existe"});
+})
 
 
 //creo una ruta donde muestro el arreglo de chats normalizados.
 app.get('/api/messages/normlizr',async(req,res)=>{
     const messagesAll = await ManagerChat.getAll();
+    req.logger.error(`en la ruta ${req.url}, usando el metodo ${req.method},a ucurrido un problema con los mensajes`)
     //estringifico y luego parseo el objeto
     const arrayMessagesStringify = JSON.stringify(messagesAll);
     const parseo = JSON.parse(arrayMessagesStringify);
@@ -79,53 +115,58 @@ app.get('/info',(req,res)=>{
         VERSION:process.version,
         MEMORY:process.memoryUsage(),
     }
+    req.logger.info(`el usuario a visitado la ruta ${req.url} con el metodo ${req.method}`)
     res.send({status:"success",payload:data})
 })
 
 //usando un process child calculo la cantidad de numeros random que sale de acuerdo al parametro que recibo.
-app.get('/api/random/:rango',(req,res)=>{
-    const {rango} = req.params;
-    const childprocess = fork('./src/childprocess.js');
-    childprocess.send({cantidad:rango}) //envio el rango del valor al process hijo.
-    //recibo el mensaje que me envia el process hijo.
-    childprocess.on('message',value =>{
-        res.send(value)
-    });
-})
-
-const server = app.listen(PORT,()=>console.log('listening to server'));
-
-//desestructuro del DAOs.
-const {ManagerProduct} = ContainerDAOs;
-const ManagerChat = new ContainerMongoChats(chatModel);
-
-//conectamos nuestro servidor con el servidor de io.
-const io = new Server(server);
+// app.get('/api/random/:rango',(req,res)=>{
+//     const {rango} = req.params;
+//     const childprocess = fork('./src/childprocess.js');
+//     childprocess.send({cantidad:rango}) //envio el rango del valor al process hijo.
+//     //recibo el mensaje que me envia el process hijo.
+//     childprocess.on('message',value =>{
+//         res.send(value)
+//     });
+// })
 
 
-io.on('connection',async(socket)=>{
-    console.log('socket connected');
 
-    const data = await ManagerProduct.getAll();//trae el array de productos que puede ser de la base mongoDB o del JSON.
-    io.emit('arrayProductos',data);//emito el JSON al servidor para que lo vean todos
 
-    // const historial = await conversacion.getAll();//llamo el historial de chats de lo que habia
-    //trae el historial de chats que esta en la base de datos sqlite3.
-    // socket.emit('arraychats',historial);
 
-    socket.on('message',async(data)=>{//recibo el mensaje que me enviaron.
+// const server = app.listen(PORT,()=>console.log('listening to server'));
 
-        await ManagerChat.save(data);//guardo los datos en la base de mongoDB.
-        const arrayMessages = await ManagerChat.getAll();//traigo los datos de la base MongoDB
-        const arrayMessagesStringify = JSON.stringify(arrayMessages);
-        const arrayParseo = JSON.parse(arrayMessagesStringify);
+// //desestructuro del DAOs.
+// const {ManagerProduct} = ContainerDAOs;
+// const ManagerChat = new ContainerMongoChats(chatModel);
 
-        const objetoPadre = {id:"10000",mensajes:arrayParseo};//al objeto parsedo lo guardo en un objeto. parapoder normalizarlo
-        const normalizeChats = normalize(objetoPadre,messagesSchema);//inserto el arreglo en el normalize
-        io.emit('arraychats',normalizeChats);
-    })
-    // socket.on('registrado',user=>{
-    //     socket.broadcast.emit('newuser',user)
-    // })
-});
+// //conectamos nuestro servidor con el servidor de io.
+// const io = new Server(server);
+
+
+// io.on('connection',async(socket)=>{
+//     console.log('socket connected');
+
+//     const data = await ManagerProduct.getAll();//trae el array de productos que puede ser de la base mongoDB o del JSON.
+//     io.emit('arrayProductos',data);//emito el JSON al servidor para que lo vean todos
+
+//     // const historial = await conversacion.getAll();//llamo el historial de chats de lo que habia
+//     //trae el historial de chats que esta en la base de datos sqlite3.
+//     // socket.emit('arraychats',historial);
+
+//     socket.on('message',async(data)=>{//recibo el mensaje que me enviaron.
+
+//         await ManagerChat.save(data);//guardo los datos en la base de mongoDB.
+//         const arrayMessages = await ManagerChat.getAll();//traigo los datos de la base MongoDB
+//         const arrayMessagesStringify = JSON.stringify(arrayMessages);
+//         const arrayParseo = JSON.parse(arrayMessagesStringify);
+
+//         const objetoPadre = {id:"10000",mensajes:arrayParseo};//al objeto parsedo lo guardo en un objeto. parapoder normalizarlo
+//         const normalizeChats = normalize(objetoPadre,messagesSchema);//inserto el arreglo en el normalize
+//         io.emit('arraychats',normalizeChats);
+//     })
+//     // socket.on('registrado',user=>{
+//     //     socket.broadcast.emit('newuser',user)
+//     // })
+// });
 

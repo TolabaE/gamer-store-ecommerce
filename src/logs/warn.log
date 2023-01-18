@@ -1,0 +1,6 @@
+{"level":"warn","message":"la ruta /pedidos/carro esta siendo visitada por el usuario y no existe."}
+{"level":"warn","message":"la ruta /pedidos esta siendo visitada por el usuario y no existe."}
+{"level":"warn","message":"la ruta /carrito esta siendo visitada por el metodo GET  y no existe."}
+{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
+{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
+{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
