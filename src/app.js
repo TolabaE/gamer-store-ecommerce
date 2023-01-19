@@ -8,8 +8,6 @@ import { Server } from 'socket.io';
 import ContainerDAOs from './daos/index.js';
 import ContainerMongoChats from './daos/contMongoChats.js';
 import chatModel from './models/chats.js';
-import messagesSchema from './utils/script.js';
-import { normalize } from 'normalizr';
 import dotenvConfig from './config/dotenv.config.js';
 //importamos estos paquetes para poder crear nuestra session.
 import session from 'express-session';
@@ -19,8 +17,6 @@ import MongoStore from 'connect-mongo';//nos permite concetarnos a nuestra base 
 //importo el passport y el metodo de inizialicion.
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
-//import fork de node,ya que es un modulo nativo para trabajar.
-import {fork} from 'child_process'
 import addLoggers from './utils/logger.js';//importo la funcion para poder usar los distintos loggers en mi aplicativo.
 //importamos el cluster para poder trabajar.
 import minimist from 'minimist';
@@ -33,6 +29,7 @@ const { m } = minimist(process.argv.slice(2), { default:{m: "fork"} });
 const app = express();
 const PORT = process.env.PORT || 8080; // usa el puerto 8080 en caso de que no tenga uno.
 const CPUs = os.cpus().length;
+let server 
 
 
 //si me pasan por paramtro el nombre cluster,entonces ejecuto el servidor en modo cluster.
@@ -52,7 +49,7 @@ if (m === "cluster") {
 	}
 	//sino por defecto si no me pasan ningun parametro ejecuto en modo fork.
 } else if (m === "fork") {
-	app.listen(PORT, console.log("servidor escuchando en modo fork"));
+	server = app.listen(PORT, console.log("servidor escuchando en modo fork"));
 }
 
 
@@ -93,17 +90,17 @@ app.get('*',(req,res)=>{
 
 
 //creo una ruta donde muestro el arreglo de chats normalizados.
-app.get('/api/messages/normlizr',async(req,res)=>{
-    const messagesAll = await ManagerChat.getAll();
-    req.logger.error(`en la ruta ${req.url}, usando el metodo ${req.method},a ucurrido un problema con los mensajes`)
-    //estringifico y luego parseo el objeto
-    const arrayMessagesStringify = JSON.stringify(messagesAll);
-    const parseo = JSON.parse(arrayMessagesStringify);
-    //creo un objeto padre que contenga a todos.
-    const chatObjet = {id:"10000",mensajes:parseo}
-    const normalizacion = normalize(chatObjet,messagesSchema)//el messagesSchema lo creo en la carpeta utils, y  luego la importo para usarla aqui
-    res.send({status:"success",payload:normalizacion});
-})
+// app.get('/api/messages/normlizr',async(req,res)=>{
+//     const messagesAll = await ManagerChat.getAll();
+//     req.logger.error(`en la ruta ${req.url}, usando el metodo ${req.method},a ucurrido un problema con los mensajes`)
+//     //estringifico y luego parseo el objeto
+//     const arrayMessagesStringify = JSON.stringify(messagesAll);
+//     const parseo = JSON.parse(arrayMessagesStringify);
+//     //creo un objeto padre que contenga a todos.
+//     const chatObjet = {id:"10000",mensajes:parseo}
+//     const normalizacion = normalize(chatObjet,messagesSchema)//el messagesSchema lo creo en la carpeta utils, y  luego la importo para usarla aqui
+//     res.send({status:"success",payload:normalizacion});
+// })
 
 app.get('/info',(req,res)=>{
     const data = {
@@ -119,54 +116,36 @@ app.get('/info',(req,res)=>{
     res.send({status:"success",payload:data})
 })
 
-//usando un process child calculo la cantidad de numeros random que sale de acuerdo al parametro que recibo.
-// app.get('/api/random/:rango',(req,res)=>{
-//     const {rango} = req.params;
-//     const childprocess = fork('./src/childprocess.js');
-//     childprocess.send({cantidad:rango}) //envio el rango del valor al process hijo.
-//     //recibo el mensaje que me envia el process hijo.
-//     childprocess.on('message',value =>{
-//         res.send(value)
-//     });
-// })
-
 
 
 
 
 // const server = app.listen(PORT,()=>console.log('listening to server'));
 
-// //desestructuro del DAOs.
-// const {ManagerProduct} = ContainerDAOs;
-// const ManagerChat = new ContainerMongoChats(chatModel);
+//desestructuro del DAOs.
+const {ManagerProduct} = ContainerDAOs;
+const ManagerChat = new ContainerMongoChats(chatModel);
 
-// //conectamos nuestro servidor con el servidor de io.
-// const io = new Server(server);
+//conectamos nuestro servidor con el servidor de io.
+const io = new Server(server);
 
 
-// io.on('connection',async(socket)=>{
-//     console.log('socket connected');
+io.on('connection',async(socket)=>{
+    console.log('socket connected');
 
-//     const data = await ManagerProduct.getAll();//trae el array de productos que puede ser de la base mongoDB o del JSON.
-//     io.emit('arrayProductos',data);//emito el JSON al servidor para que lo vean todos
+    const data = await ManagerProduct.getAll();//trae el array de productos que puede ser de la base mongoDB o del JSON.
+    io.emit('arrayProductos',data);//emito el JSON al servidor para que lo vean todos
 
-//     // const historial = await conversacion.getAll();//llamo el historial de chats de lo que habia
-//     //trae el historial de chats que esta en la base de datos sqlite3.
-//     // socket.emit('arraychats',historial);
+    //traigo los mensajes que habia en mi base mongoDB.
+    const historial = await ManagerChat.getAll();
+    socket.emit('arraychats',historial);
 
-//     socket.on('message',async(data)=>{//recibo el mensaje que me enviaron.
-
-//         await ManagerChat.save(data);//guardo los datos en la base de mongoDB.
-//         const arrayMessages = await ManagerChat.getAll();//traigo los datos de la base MongoDB
-//         const arrayMessagesStringify = JSON.stringify(arrayMessages);
-//         const arrayParseo = JSON.parse(arrayMessagesStringify);
-
-//         const objetoPadre = {id:"10000",mensajes:arrayParseo};//al objeto parsedo lo guardo en un objeto. parapoder normalizarlo
-//         const normalizeChats = normalize(objetoPadre,messagesSchema);//inserto el arreglo en el normalize
-//         io.emit('arraychats',normalizeChats);
-//     })
-//     // socket.on('registrado',user=>{
-//     //     socket.broadcast.emit('newuser',user)
-//     // })
-// });
-
+    socket.on('message',async(data)=>{//recibo el mensaje que me enviaron.
+        await ManagerChat.save(data);//guardo los mensajes en la base de mongoDB.
+        const arrayMessages = await ManagerChat.getAll();//traigo los datos de la base MongoDB
+        io.emit('arraychats',arrayMessages);
+    })
+    socket.on('registrado',user=>{
+        socket.broadcast.emit('newuser',user)
+    })
+});

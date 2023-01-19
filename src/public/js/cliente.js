@@ -45,14 +45,14 @@ inputMessage.addEventListener('keyup',event=>{
 
 
 socket.on('arraychats',datos=>{
-    console.log(datos);
     let msg ="";
-    msg += `<div class="p-chat">
-                <p>${datos}}</p>
+    datos.forEach(item => {
+        msg += `<div class="p-chat">
+                <p>${item.author.nombre}: ${item.text}</p>
             </div>`
+    });
     linetext.innerHTML = msg;
     linetext.scrollTop= linetext.scrollHeight;//esta codigo permite que me valla tirando los mensajes para abajo sin tener que escrolear.
-    // perfil.innerHTML = datos.entities.usuario.nombre
 })
 
 //<p class="time">${datos.mensajes}</p> este fragmento va en el chat me muestra la hora .
