@@ -12,11 +12,12 @@ import dotenvConfig from './config/dotenv.config.js';
 //importamos estos paquetes para poder crear nuestra session.
 import session from 'express-session';
 import MongoStore from 'connect-mongo';//nos permite concetarnos a nuestra base de mongo.
-// import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 
 //importo el passport y el metodo de inizialicion.
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
+import flash from 'connect-flash';//es un modulo que nos permite conectar el envio recibo de mensajes entre multiples pag.
 import addLoggers from './utils/logger.js';//importo la funcion para poder usar los distintos loggers en mi aplicativo.
 //importamos el cluster para poder trabajar.
 import minimist from 'minimist';
@@ -27,7 +28,7 @@ import os from 'os';
 const { m } = minimist(process.argv.slice(2), { default:{m: "fork"} });
 
 const app = express();
-const PORT = process.env.PORT || 8080; // usa el puerto 8080 en caso de que no tenga uno.
+export const PORT = process.env.PORT || 8080; // usa el puerto 8080 en caso de que no tenga uno.
 const CPUs = os.cpus().length;
 let server 
 
@@ -49,7 +50,7 @@ if (m === "cluster") {
 	}
 	//sino por defecto si no me pasan ningun parametro ejecuto en modo fork.
 } else if (m === "fork") {
-	server = app.listen(PORT, console.log("servidor escuchando en modo fork"));
+	server = app.listen(PORT, console.log(`servidor escuchando en modo fork en puerto:${PORT}`));
 }
 
 
@@ -58,25 +59,35 @@ app.set('views',__dirname+'/views');
 app.set('view engine','ejs');
 
 app.use(express.json()); // Especifica que podemos recibir json
-app.use(express.urlencoded({extended:true})); // Habilita poder procesar y parsear datos más complejos en la url,
+app.use(express.urlencoded({extended:true})); //Habilita poder procesar y recibir datos más complejos en la url como archivos.
 app.use(addLoggers);//uso la funcion como middlewear,para que este disponible en todo mi aplicativo.
 
 // configuramos la conexion de la session con mongo atlas aqui.
 app.use(session({
     store:MongoStore.create({
         mongoUrl:`mongodb+srv://${dotenvConfig.mongo.USER}:${dotenvConfig.mongo.PWD}@codercluster0.nvobhct.mongodb.net/${dotenvConfig.mongo.DB}?retryWrites=true&w=majority`,
-        ttl:120,
+        ttl:600,
     }),
     secret:`${dotenvConfig.session.SECRET}`,
     resave:false,
     saveUninitialized:false,
 }))
 
+app.use(flash());//seteo al flash como un middlewear.
 initializePassport()//inizializa las estrategias de passport.
 app.use(passport.initialize())//inizializa el corazon de passport
 app.use(passport.session())//esto le permite trabajar con el modelo de sessiones que tenga actualmente.
-
+app.use(cookieParser());
 app.use(express.static(__dirname + "/public"));//hace publico los archivos que estan en la carpeta para entrar de manera directa.
+
+// //seteo un nuevo middlewear para obtener los mensajes del req.flash();
+// app.use((req,res,next)=>{
+//     //obtengo el mensaje y lo almaceno de forma local para que este disponible ne todo mi aplicativo.
+//     app.locals.messageRegister = req.flash('messageRegister');
+//     next();//para que continue con el resto de las peticiones,sino se queda estancado.
+// })
+
+//routes
 app.use('/',routerviews);
 app.use('/api/session',sessionRouter);
 app.use('/api/products',apiProductsRouter);
@@ -87,20 +98,6 @@ app.get('*',(req,res)=>{
     req.logger.warn(`la ruta ${req.url} esta siendo visitada por el metodo ${req.method} y no existe.`);
     res.send({status:"error",error:"la ruta que usted esta visitando no existe"});
 })
-
-
-//creo una ruta donde muestro el arreglo de chats normalizados.
-// app.get('/api/messages/normlizr',async(req,res)=>{
-//     const messagesAll = await ManagerChat.getAll();
-//     req.logger.error(`en la ruta ${req.url}, usando el metodo ${req.method},a ucurrido un problema con los mensajes`)
-//     //estringifico y luego parseo el objeto
-//     const arrayMessagesStringify = JSON.stringify(messagesAll);
-//     const parseo = JSON.parse(arrayMessagesStringify);
-//     //creo un objeto padre que contenga a todos.
-//     const chatObjet = {id:"10000",mensajes:parseo}
-//     const normalizacion = normalize(chatObjet,messagesSchema)//el messagesSchema lo creo en la carpeta utils, y  luego la importo para usarla aqui
-//     res.send({status:"success",payload:normalizacion});
-// })
 
 app.get('/info',(req,res)=>{
     const data = {
@@ -117,10 +114,6 @@ app.get('/info',(req,res)=>{
 })
 
 
-
-
-
-// const server = app.listen(PORT,()=>console.log('listening to server'));
 
 //desestructuro del DAOs.
 const {ManagerProduct} = ContainerDAOs;

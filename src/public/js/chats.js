@@ -3,43 +3,40 @@ const socket = io({autoConnect:false});
 const inputMessage = document.getElementById('inputChat');
 const linetext = document.getElementById('text-message');
 const perfil = document.getElementById('perfil-usuario');
-const modalForm = document.getElementById('formDataModal');
 
 let usuario = "";
 
-modalForm.addEventListener('submit',(e)=>{
-    e.preventDefault();
-    const formdata = new FormData(e.target);
-    const data = {
-        id:formdata.get('email'),
-        nombre:formdata.get('nombre'),
-        apellido:formdata.get('apellido'),
-        edad:formdata.get('edad'),
-        alias: formdata.get('alias'),
-        avatar:formdata.get('avatar'),
-    }
+Swal.fire({
+    title:"Registrarse",
+    input:"text",
+    text:'ingrese un nombre de usuario',
+    inputValidator:(value)=>{
+        return !value && '¡necesitas ingresar con un nombre!'
+    },
+    //te permite bloquear el click a fuera del alerta,asi no se cierra la ventanas.
+    allowOutsideClick:false,
+    allowEscapeKey:false,//no te permite salir cuando hagas click en la tecla esc.
+})
+.then(result=>{//capturo el nombre de usuario que me envian por el sweetalert.
+    usuario = result.value;
     socket.connect();
-    // modalForm.reset()//limpia los contenido que tenian los input.
-    usuario = data;
+    socket.emit('registrado',usuario);//envio los datos del cliente al servidor.
+    perfil.innerHTML = usuario;
 })
 
 
 const hora = new Date().toLocaleTimeString();
 inputMessage.addEventListener('keyup',event=>{
     if (event.key === "Enter") {
-        if (!usuario) {
-            Swal.fire({
-                // html:`` es para hacer un formulario en el swetalert
-                icon: 'error',
-                title: 'Registrate',
-                text: 'No estas identificado con ningun usuario',
-            })
-        }
+
         const value = inputMessage.value.trim();
-        if (value.length>0) {
+        if (value.length > 0) {
             socket.emit('message',{author:usuario,text:value});//envio el mensaje al servidor
             inputMessage.value = "";
+        }else{
+
         }
+        
     }
 })
 
@@ -48,7 +45,7 @@ socket.on('arraychats',datos=>{
     let msg ="";
     datos.forEach(item => {
         msg += `<div class="p-chat">
-                <p>${item.author.nombre}: ${item.text}</p>
+                <p>${item.author}: ${item.text}</p>
             </div>`
     });
     linetext.innerHTML = msg;

@@ -6,6 +6,9 @@ body{
     font-family: 'Roboto', sans-serif;
     background-color: burlywood;
 }
+:root{
+    --colorPalet1:peru;
+}
 .title-pages{
     text-align: center;
     background-color:  rgb(201, 112, 49);
@@ -21,7 +24,7 @@ body{
 .box-form{
     display: flex;
     flex-direction: column;
-    background-color:peru;
+    background-color:var(--colorPalet1);
     padding: 30px;
     border-radius: 12px;
     margin: 1% 40%;
@@ -34,7 +37,7 @@ body{
 .container-card{
     display: flex;
     flex-direction: column;
-    background-color: peru;
+    background-color:var(--colorPalet1);
     padding: 15px;
     border-radius: 12px;
     margin: 15px;
@@ -52,7 +55,10 @@ body{
     height: 100%;
 }
 .container-detail{
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-top: 10px;
 }
 .container-navbar{
@@ -92,13 +98,14 @@ body{
     border-radius: 5px;
 }
 .list-menu li a:hover{
-    background-color: peru;
+    background-color: var(--colorPalet1);
     color: black;
 }
 .list-menu div a{
     color: black;
     text-decoration: none;
 }
+/* estilos de la pagina servicios */
 .container-chat{
     margin: 20px 420px;
     text-align: center;
@@ -148,19 +155,6 @@ body{
     color: beige;
     font-weight: 700;
 }
-.container-modal{
-    text-align: center;
-    padding-top: 10px;
-}
-.modal{
-    background-color: cornflowerblue;
-}
-.modal-body{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 /* estilos de la pagina register */
 .container-register{
     display: flex;
@@ -168,10 +162,14 @@ body{
     justify-content: center;
     align-items: center;
 }
-.container-register form {
+.formStyle {
+    text-align: center;
     background-color: coral;
-    padding: 25px;
+    padding: 30px;
     border-radius: 12px;
+}
+.formStyle input{
+    padding: 5px 10px;
 }
 /* estilos de la pagina login */
 .container-login{
@@ -184,4 +182,61 @@ body{
     background-color:coral;
     padding: 20px;
     border-radius: 12px;
+}
+/* estilos del contador para agregar productos */
+.count-cart{
+    display: flex;
+    align-items: center;
+}
+.count-cart button{
+    font-size: large;
+    padding: 2px 4px;
+}
+.count-cart h4{
+    padding: 4px;
+}
+/* estilos de la pagina perfil de usuario */
+.img-profile{
+    width: 300px;
+}
+.container-profile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+}
+/* estilos de la pag carrito */
+.box-cart-father{
+    display: flex;
+    padding: 20px;
+    flex-wrap: wrap;
+    grid-area: cart;
+}
+.box-order-father{
+    margin: auto;
+    grid-area: order;
+}
+#grid-father{
+    display: grid;
+    grid-template-areas: 
+    "cart order";
+    grid-template-columns: 4fr 1fr;
+}
+.card-order{
+    background-color: chocolate;
+    padding: 20px;
+    text-align: center;
+}
+.box-cart-children{
+    display: flex;
+    margin: 20px;
+}
+.img-cart{
+    width: 150px;
+    height: 150px;
+}
+.detail-cart{
+    background-color: goldenrod;
+    padding: 10px;
 }

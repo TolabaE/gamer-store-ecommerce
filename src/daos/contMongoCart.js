@@ -19,7 +19,6 @@ class ContainerMongoCart {
         const arrayCart = await this.readCart();//traigo los datos de la base mongo
         if (arrayCart.some(obj=>obj.id == idCart)) {
             const objeto = arrayCart.find(ele=>ele.id == idCart)//obtengo al objeto que cumpla con ese ID
-            console.log(objeto);
             return objeto.cart.some(prod=>prod.id == idProduct);//luego le hago un filtrado al carrito,si existe el producto;
         }else{
             return null;
@@ -55,14 +54,14 @@ class ContainerMongoCart {
     }
 
     //agrega un producto en el carrito guardando su id y su cantidad, ya con todas las validaciones.
-    addProductAtCart=async(idCart,productID)=>{
+    addProductAtCart=async(idCart,productID,cantidad)=>{
         const {cart} = await this.collection.findOne({_id:idCart})//busco el objeto que cumpla el id,luego desestructuro para objetener el carrito.
         let objeto = {}
         if (cart.some(pro=>pro.id == productID)){//creo una condicion,si en mi arreglo existe un objeto con el ID que me envian por parametro.
             objeto = cart.find(pro=>pro.id === productID)//accedo al objeto y le sumo la cantidad +1,
-            objeto.cantidad++
+            objeto.cantidad += cantidad;
         }else{
-            objeto.cantidad = 1;//sino me lo crea con la propiedad cantidad que sea igual a 1.
+            objeto.cantidad = cantidad;//sino me lo crea con la propiedad cantidad que sea igual a 1.
             objeto.id = productID;
             cart.push(objeto)//y pusheo ese nuevo objeto al array.
         }

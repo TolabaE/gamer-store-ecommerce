@@ -4,11 +4,11 @@ import mongoose from "mongoose";
 const collection = 'users';
 
 const schema = mongoose.Schema({
-    nombre:{
+    first_name:{
         type:String,
         require:true
     },
-    apellido:{
+    last_name:{
         type:String,
         require:true
     },
@@ -20,6 +20,13 @@ const schema = mongoose.Schema({
     password:{
         type:String,
         require:true,
+    },
+    image:{
+        type:String
+    },
+    cart_ID:{
+        type:String,
+        require:true
     }
 })
 

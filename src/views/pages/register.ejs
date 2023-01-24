@@ -9,15 +9,18 @@
 </head>
 <body>
     <div class="container-register">
+        <div id="textAlert">
+
+        </div>
         <h1>Registrate</h1>
-        <form id="registerForm">
+        <form id="registerForm" class="formStyle">
             <label for="text">Nombre</label>
             <div>
-                <input type="text" name="nombre">
+                <input type="text" name="first_name">
             </div>
             <label for="text">Apellido</label>
             <div>
-                <input type="text" name="apellido">
+                <input type="text" name="last_name">
             </div>
             <label for="email">Correo</label>
             <div>
@@ -26,6 +29,10 @@
             <label for="password">Contraseña</label>
             <div>
                 <input type="text" name="password">
+            </div>
+            <label for="file">Foto de Perfil</label>
+            <div>
+                <input type="file" name="image">
             </div>
             <input type="submit" value="registrarse">
         </form>

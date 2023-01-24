@@ -9,5 +9,9 @@ export default {
         PWD:process.env.mongo_password,
         DB:process.env.mongo_database,
     },
-    session:{SECRET:process.env.mongo_session_secret}
+    session:{SECRET:process.env.mongo_session_secret},
+    cart:{
+        EMAIL: process.env.api_cart_email,
+        PWD: process.env.api_cart_password
+    }
 }

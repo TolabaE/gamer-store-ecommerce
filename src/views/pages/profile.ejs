@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/style.css">
-    <title>inicio</title>
+    <title>Profile</title>
 </head>
 <body>
     <nav class="container-navbar">
@@ -33,10 +33,21 @@
             </div>
         </ul>
     </nav>
-    <div>
-        <h1 class="title-pages">Carga de productos</h1>
-    </div>
-    <%- include('../partials/form') %> 
+
+    <% if (profile) { %>
+        <div class="container-profile">
+            <h1>DATOS DEL USUARIO</h1>
+            <div>
+                <img src=<%= profile.image %>  class="img-profile" alt="">
+            </div>
+            <div>
+                <h2>Nombre: <%=profile.first_name%> </h2>
+                <h3>apellido: <%=profile.last_name%> </h3>
+                <p>Correo: <%=profile.email%> </p>
+                <p>orden de carrito: <%=profile.cart_ID%> </p>
+            </div>
+        </div>
+    <% }%>
 
 </body>
 </html>

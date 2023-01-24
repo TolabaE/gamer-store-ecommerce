@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/style.css">
-    <title>inicio</title>
+    <title>Carrito</title>
 </head>
+
 <body>
     <nav class="container-navbar">
         <div class="container-log">
@@ -33,10 +35,18 @@
             </div>
         </ul>
     </nav>
-    <div>
-        <h1 class="title-pages">Carga de productos</h1>
-    </div>
-    <%- include('../partials/form') %> 
+    <h1>hola soy el carrito</h1>
+    <section id="grid-father">
+        <div id="container-cart" class="box-cart-father">
+            <!-- aqui se insertan los productos que fueron agregado al carrito -->
+        </div>
+        <div id="container-order" class="box-order-father">
+            <!-- aqui se inserta el la factura para el orden de compra -->
+        </div>
+    </section>
 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/cart.js"></script>
 </body>
+
 </html>
