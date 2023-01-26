@@ -1,46 +1,17 @@
 import { Router } from "express";
-import ContainerDAOs from "../daos/index.js";
+import viewsControllers from "../controllers/views.controllers.js";
 
 
 const router = Router();
-const {ManagerProduct,ManagerCart} = ContainerDAOs;//desestructuro.
 
-//muestro la vista register
-router.get('/',(req,res)=>{
-    res.render('pages/register');
-})
+router.get('/',viewsControllers.registerPage);//muestro la vista register
+router.get('/login',viewsControllers.loginPage);//muestro la vista login en el sitio
+router.get('/form',viewsControllers.formPage);//muestro la vista del formulario para cargar productos.
+router.get('/cliente',viewsControllers.clientPage);//muestro la vista del chats de la pagina
+router.get('/productos',viewsControllers.productsPage);//muestro la vista donde estan todos los productos.
+router.get('/cart',viewsControllers.cartsPage);//muestro la vista del carrito de compras.
+router.get('/profile',viewsControllers.profilePage);//muestro la vista del perfil de usuario.
 
-//muestro la vista login en el sitio
-router.get('/login',(req,res)=>{
-    // const name = req.session.user
-    res.render('pages/login')
-})
-
-router.get('/form',(req,res)=>{
-    res.render('pages/home')
-});
-
-router.get('/cliente',(req,res)=>{
-    res.render('pages/cliente')
-})
-
-router.get('/productos',async(req,res)=>{
-    res.render('pages/products');//envio los datos a la carpeta de views.
-});
-
-router.get('/cart',(req,res)=>{
-    res.render('pages/cart')
-})
-
-router.get('/profile',(req,res)=>{
-    const profile = req.session.user;
-    res.render('pages/profile',{profile})//renderizo la vista profile y ademas los datos del usuario
-})
-
-router.post('/datos',async(req,res)=>{
-    const producto = req.body;
-    await ManagerProduct.save(producto);
-    res.redirect('/form');
-});
+router.post('/datos',viewsControllers.postForm);
 
 export default router;

@@ -36,18 +36,6 @@
 {"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
 {"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
 {"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
-{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
-{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
-{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
-{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
-{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
-{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
-{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
-{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
-{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
-{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
-{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
-{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
 {"level":"warn","message":"la ruta /products esta siendo visitada por el metodo GET y no existe."}
 {"level":"warn","message":"la ruta /product esta siendo visitada por el metodo GET y no existe."}
 {"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
@@ -93,6 +81,13 @@
 {"level":"info"}
 {"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
 {"level":"warn","message":"la ruta /undefined esta siendo visitada por el metodo GET y no existe."}
+{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
+{"level":"info","message":{"_id":"63cf394f07f81603e300b6fa","cart_ID":"63cf394f07f81603e300b6f8","email":"miguel@gmail.com","first_name":"miguel","image":"http://localhost:8080/image/1674524899426-fotoDiscord.jpg","last_name":"tolaba"}}
+{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
+{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
+{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
+{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
+{"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
 {"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
 {"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}
 {"level":"warn","message":"la ruta /favicon.ico esta siendo visitada por el metodo GET y no existe."}

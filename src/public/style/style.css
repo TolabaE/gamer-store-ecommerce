@@ -61,6 +61,7 @@ body{
     align-items: center;
     margin-top: 10px;
 }
+/* estilos del navbar */
 .container-navbar{
     background-color:#a85311;
     padding: 10px;
@@ -100,6 +101,9 @@ body{
 .list-menu li a:hover{
     background-color: var(--colorPalet1);
     color: black;
+}
+.list-menu div{
+    padding: 0px 10px;
 }
 .list-menu div a{
     color: black;
