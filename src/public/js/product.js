@@ -28,7 +28,10 @@ socket.on('arrayProductos',productos=>{
         </div>`
     });
     containerdiv.innerHTML = insertDOM;
-    productos.forEach((product,index)=> {
+
+
+    for (let index = 0; index < productos.length; index++) {
+        // const product = array[index];
         let contador = 0;
         const cards = document.getElementById(`${index}`);//con el indice de la card puedo acceder a sus etiquetas hijas.
         const number = cards.children[1].children[3].children[1];//accedo a la etiqueta para modificar su valor insertanto texto html.
@@ -50,7 +53,7 @@ socket.on('arrayProductos',productos=>{
         });
 
         //aqui accedo al boton de la card,y realizo un evento que agrega productos al carrito
-        cards.children[2].addEventListener('click',()=>{
+        cards.children[2].addEventListener('click', async()=>{
             //si el contador es distinto de 0,me permita enviar el dato al servidor.
             if (contador !== 0) {
                 const item = productos[index];//accedo al indice de la card en el arreglo
@@ -58,16 +61,15 @@ socket.on('arrayProductos',productos=>{
                     prod_id:item._id,
                     cantidad:contador
                 }
+                number.innerText = 0;//seteo el valor de cantidad a 0 una vez agregado el producto al carrito.
                 //realizo un envio con el fetch a la ruta donde voy a recibir los productos.
-                fetch('/api/cart/pedido',{
+                await fetch('/api/cart/pedido',{
                     method:'POST',
                     body:JSON.stringify(pedido),
                     headers:{'Content-type':'application/json'}
                 })//podemos cachear la promesa que nos devulven del back-end.
-                number.innerText = 0;//seteo el valor de cantidad a 0 una vez agregado el producto al carrito.
+                
             }
         })
-    });
+    }
 });
-
-

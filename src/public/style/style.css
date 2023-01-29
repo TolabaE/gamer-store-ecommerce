@@ -8,6 +8,8 @@ body{
 }
 :root{
     --colorPalet1:peru;
+    --colorPalet2:coral;
+    --colorPalet3:#a85311;
 }
 .title-pages{
     text-align: center;
@@ -21,13 +23,22 @@ body{
     align-content: center;
     margin: center;
 }
+/* estilos del formulario . */
 .box-form{
     display: flex;
     flex-direction: column;
     background-color:var(--colorPalet1);
     padding: 30px;
     border-radius: 12px;
-    margin: 1% 40%;
+    margin: 5% 35%;
+}
+.box-form input {
+    margin: 5px;
+    height: 25px;
+}
+.box-form button {
+    height: 25px;
+    margin: 0px 20px;
 }
 .container-card-father{
     display: flex;
@@ -63,7 +74,7 @@ body{
 }
 /* estilos del navbar */
 .container-navbar{
-    background-color:#a85311;
+    background-color:var(--colorPalet3);
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -73,15 +84,13 @@ body{
 .container-log{
     display: flex;
     align-items: center;
+    background-color: white;
     font-size: 25px;
     font-weight: 700;
 }
-.log-pag{
-    color: black;
-    background-color: white;
-}
 .container-log span {
     background-color: red;
+    padding: 3px;
     color: white;
 }
 .list-menu{
@@ -111,9 +120,9 @@ body{
 }
 /* estilos de la pagina servicios */
 .container-chat{
-    margin: 20px 420px;
+    margin: 20px 20%;
     text-align: center;
-    background-color: cornflowerblue;
+    background-color:var(--colorPalet1);
 }
 .container-input{
     display: flex;
@@ -121,30 +130,25 @@ body{
     justify-content: center;
     padding: 10px;
 }
-.container-input div{
-    margin: 0px 8px;
-}
 .container-message{
     text-align: left;
     height: 60vh;
-    width: 400px;
+    width: 60vw;
     margin: auto;
     overflow-y: scroll;
 }
 .p-chat{
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(130, 170, 246);
-    padding: 5px;
+    background-color: rgb(250, 192, 138);
+    padding: 7px;
     border-radius:0px 10px 10px 30px;
-    margin: 5px;
-    padding-left: 10px;
+    margin: 5px 10px;
+    width: 90%;
 }
 .container-perfil{
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    background-color: rgb(54, 101, 187);
+    background-color:var(--colorPalet3);
     padding: 20px;
 }
 .container-perfil div {
@@ -168,7 +172,7 @@ body{
 }
 .formStyle {
     text-align: center;
-    background-color: coral;
+    background-color: var(--colorPalet2);
     padding: 30px;
     border-radius: 12px;
 }
@@ -183,7 +187,7 @@ body{
     align-items: center;
 }
 .container-login form {
-    background-color:coral;
+    background-color:var(--colorPalet2);
     padding: 20px;
     border-radius: 12px;
 }
@@ -213,7 +217,7 @@ body{
 /* estilos de la pag carrito */
 .box-cart-father{
     display: flex;
-    padding: 20px;
+    padding: 10px;
     flex-wrap: wrap;
     grid-area: cart;
 }
@@ -223,12 +227,13 @@ body{
 }
 #grid-father{
     display: grid;
+    margin: 20px;
     grid-template-areas: 
     "cart order";
     grid-template-columns: 4fr 1fr;
 }
 .card-order{
-    background-color: chocolate;
+    background-color: #a85311;
     padding: 20px;
     text-align: center;
 }
@@ -243,4 +248,17 @@ body{
 .detail-cart{
     background-color: goldenrod;
     padding: 10px;
+}
+.container-title-cart{
+    text-align: center;
+}
+
+@media (max-width:768px){
+    .container-chat{
+        margin: 10px 10%;
+    }
+    .box-form{
+        padding: 20px;
+        margin: 10px 30px;
+    }
 }

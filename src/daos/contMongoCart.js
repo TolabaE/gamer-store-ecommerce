@@ -37,9 +37,9 @@ class ContainerMongoCart {
     }
 
     //accede a un objeto del array por id y seteo la propiedad cart con un nuevo arreglo vacio.
-    clearCartById=async(deleteId)=>{
+    clearCartById=async(clearId)=>{
         //matchedCount:Recuento coincidente, modifiedCount:Cuenta modificada
-        const {matchedCount,modifiedCount}= await this.collection.updateOne({_id:deleteId},{$set:{cart:[]}});
+        const {matchedCount,modifiedCount}= await this.collection.updateOne({_id:clearId},{$set:{cart:[]}});
         if ( matchedCount == 0) return false;//no encontro ni el carrito ni el objeto.
         else if (modifiedCount != 0 && matchedCount > 0) return true;//encontro el carrito y si lo modifico ya que existia algun objeto dentro.
         else if(modifiedCount == 0 && matchedCount > 0) return null;//si encontro el carrito pero no modifico nada,ya que el mismo esta vacio y no hay nada para limpiar.

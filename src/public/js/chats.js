@@ -44,9 +44,7 @@ inputMessage.addEventListener('keyup',event=>{
 socket.on('arraychats',datos=>{
     let msg ="";
     datos.forEach(item => {
-        msg += `<div class="p-chat">
-                <p>${item.author}: ${item.text}</p>
-            </div>`
+        msg += `<p class="p-chat">${item.author}: ${item.text}</p>`
     });
     linetext.innerHTML = msg;
     linetext.scrollTop= linetext.scrollHeight;//esta codigo permite que me valla tirando los mensajes para abajo sin tener que escrolear.

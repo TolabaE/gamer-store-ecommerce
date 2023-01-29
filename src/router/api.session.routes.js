@@ -1,6 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
-import uploader from "../config/multerconfig.js";//importamos la configuracion de multer para poder trabajar como un middlewear.
+import uploader from "../middlewares/multerconfig.js";//importamos la configuracion de multer para poder trabajar como un middlewear.
 import sessionsController from "../controllers/sessions.controller.js";
 
 

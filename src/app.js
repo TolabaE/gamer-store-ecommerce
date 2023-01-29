@@ -18,7 +18,7 @@ import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 import flash from 'connect-flash';//es un modulo que nos permite conectar el envio recibo de mensajes entre multiples pag.
-import addLoggers from './utils/logger.js';//importo la funcion para poder usar los distintos loggers en mi aplicativo.
+import addLoggers from './middlewares/logger.js';//importo la funcion para poder usar los distintos loggers en mi aplicativo.
 //importamos el cluster para poder trabajar.
 import minimist from 'minimist';
 import cluster from 'cluster';
@@ -66,7 +66,7 @@ app.use(addLoggers);//uso la funcion como middlewear,para que este disponible en
 app.use(session({
     store:MongoStore.create({
         mongoUrl:`mongodb+srv://${dotenvConfig.mongo.USER}:${dotenvConfig.mongo.PWD}@codercluster0.nvobhct.mongodb.net/${dotenvConfig.mongo.DB}?retryWrites=true&w=majority`,
-        ttl:600,
+        ttl:900,
     }),
     secret:`${dotenvConfig.session.SECRET}`,
     resave:false,

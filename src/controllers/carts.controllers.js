@@ -5,10 +5,36 @@ import dotenvConfig from '../config/dotenv.config.js';
 //desestructuro los managers que exporte desde la carpeta daos, para acceder a sus metodos
 const { ManagerCart,ManagerProduct } = ContainerDAOs;
 
+
+//creo una funcion que me trae los productos del usuario,apartir de su ID. 
+const productsFilter = (carrito,productos) =>{
+    const array = [];//creo un arreglo vacio.
+    carrito.forEach(item => {
+        productos.filter(producto =>{
+            if (producto._id == item.id) {
+                const {cantidad} = carrito.find(object => object.id === item.id);//obtengo la propiedad cantidad del carrito asociado
+                //creo una nuevo objeto al cual le redefino las propiedades.
+                let nuevoProducto = {
+                    id: producto._id,
+                    name: producto.nombre,
+                    mark: producto.marca,
+                    image: producto.image,
+                    quantity: cantidad,
+                    price: producto.precio,
+                }
+                array.push(nuevoProducto)
+            }
+        })
+    })
+    return array;
+}
+
 //creo una funcion envio de pedido
 const orderDelivery = async(req,res) =>{
-    const data = req.body;//obtengo la data que me envian del lado del front-end.
-    const {email,first_name} = req.session.user //obtengo el email del usuario que realiza la compra.
+    const pedido = req.body
+    console.log(pedido);
+    const {email,first_name,cart_ID} = req.session.user; //obtengo el email del usuario que realiza la compra.
+    const {product} = pedido;
     //creamos un trasporte con nodemailer para poder usarlo despues;
     const trasport = nodemailer.createTransport({
         service:'gmail',
@@ -18,14 +44,15 @@ const orderDelivery = async(req,res) =>{
             pass:`${dotenvConfig.cart.PWD}` //paso la contraseña que me fue generado al momento de verificar los pasos.
         }
     })
-    console.log('esta linea se ejecuta');
+
     let body = "";
-    data.productos.forEach(item=>{
+
+    product.forEach(item=>{
         body += `
         <div>
             <img style="width:150px" src=${item.image} alt="">
-            <h4>${item.nombre}</h4>
-            <h5>${item.cantidad}</h5>
+            <h4>${item.name}</h4>
+            <h5>${item.quantity}</h5>
         </div>
         `
     })
@@ -41,9 +68,12 @@ const orderDelivery = async(req,res) =>{
                 <p>Nombre: ${first_name}</p>
                 ${body}
             </div>
-            <h2> Precio Total:$${data.total}</h2>
+            <h2> Precio Total:$${pedido.importe}</h2>
         `
     })
+
+    //limpio el carrito de productos pasando su ID.
+    await ManagerCart.clearCartById(cart_ID);
     res.send({status:"success",payload:result});
 }
 
@@ -51,34 +81,15 @@ const addCart = async(req,res) =>{
     const {cantidad,prod_id}= req.body;//obtengo los datos que me envian por el fetch.
     const {cart_ID} = req.session.user;//obtengo el id de carrito del usuario que esta logeado
     await ManagerCart.addProductAtCart(cart_ID,prod_id,cantidad);//guardo los productos en el carrito que le fue asignado al registrarse.
+    res.send({status:"success"});
 }
 
 const getCartProducts = async(req,res) =>{
     if(!req.session.user) return res.send({status:"error",error:"no estas logeado"});
     const {cart_ID,first_name} = req.session.user;//obtengo el id de carrito y el nombre del usuario que esta logeado
-    const carrito = await ManagerCart.getCartById(cart_ID);//ya tengo el carrito asociado a sus productos.
-    const {cart} = carrito; //obtengo el arreglo de los pedidos guardados.
+    const {cart} = await ManagerCart.getCartById(cart_ID);//ya tengo el carrito asociado a sus productos.
     const products = await ManagerProduct.getAll();
-    const arreglo = [];//creo un arreglo vacio para poder pushearlo los productos.
-    //recorro con un foreach para obtener el id del prod en el carrito
-    cart.forEach(item => {
-        //filtro los datos de los productos.
-        products.filter(prod=>{
-            if (prod._id == item.id) {
-                const {cantidad} = cart.find(obj=>obj.id === item.id);//obtengo del obj en el carrito su propiedad cantidad,
-                //creo un nuevo objeto y le redefino las propiedades.
-                let producNew = {
-                    id: prod._id,
-                    nombre: prod.nombre,
-                    marca: prod.marca,
-                    image: prod.image,
-                    cantidad: cantidad,
-                    precio: prod.precio,
-                }
-                arreglo.push(producNew)
-            }
-        })
-    });
+    const arreglo = productsFilter(cart,products);//llamo a la funcion de traerme los productos de acuerdo al ID del carrito del usuario.
     res.send({status:"success",payload:arreglo,client: first_name});
 }
 
