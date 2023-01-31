@@ -1,6 +1,4 @@
-import ContainerDAOs from "../daos/index.js";
-
-const {ManagerProduct} = ContainerDAOs;//desestructuro.
+import { productService } from "../services/services.js";
 
 
 const loginPage = (req,res) =>{
@@ -34,7 +32,7 @@ const profilePage = (req,res) =>{
 
 const postForm =  async(req,res) =>{
     const producto = req.body;
-    await ManagerProduct.save(producto);
+    await productService.saveObject(producto);
     res.redirect('/form');
 };
 

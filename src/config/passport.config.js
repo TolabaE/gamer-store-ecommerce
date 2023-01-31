@@ -1,13 +1,13 @@
 import passport from "passport";
 import local from "passport-local";
-import registerModel from "../models/session.js";
+// import registerModel from "../models/session.js";
 import { createHash , isValidPassword } from "../utils.js";
 import { PORT } from "../app.js";
-import ContainerDAOs from "../daos/index.js";//importo el managers del carrito.
-
+// import ContainerDAOs from "../daos/index.js";//importo el managers del carrito.
+import { userService , cartService } from "../services/services.js";
 
 const localStrategy = local.Strategy;//primero llamamos a una estrategia de autenticacion del local.
-const {ManagerCart} = ContainerDAOs;//desestructuro para obtener al manager cart.
+// const {ManagerCart} = ContainerDAOs;//desestructuro para obtener al manager cart.
 
 //declaro una nueva estrategia local,
 
@@ -21,13 +21,13 @@ const initializePassport = async () =>{
             const {first_name,last_name} = req.body;
             // const imagen = req.file.filename;// 
             if (!first_name || !last_name || !req.file) return done(null,false,req.flash('messageRegister','Datos incompletos'));
-            const existUser = await registerModel.findOne({email:email})//busco en la base mongo si el usuario existe.
+            const existUser = await userService.getByOptions(email) //busco en la base mongo si el usuario existe.
             if (existUser) return done(null,false,req.flash('messageRegister',"el usuario ya esta registrado"));
             const hashedPass = await createHash(password);//creo un nuevo password encriptado, apartir del que me envian por el register.
             //aqui reconstruyo los datos que me enviaron del form en un objeto para poder almacenarlo en la base mongo
 
             //al registrarse le creo un carrito vacio,
-            const idNewCart = await ManagerCart.createCart();//creo el carrito y me retorna el ID con el que fue asignado.
+            const idNewCart = await cartService.createCart();//creo el carrito y me retorna el ID con el que fue asignado.
             const user ={
                 first_name,
                 last_name,
@@ -36,7 +36,7 @@ const initializePassport = async () =>{
                 image:`${req.protocol}://${req.hostname}:${PORT}/image/${req.file.filename}`,//guardo la ruta para acceder a la imagen
                 cart_ID:idNewCart//este lo igual para que se cree con un ID.
             }
-            const result = await registerModel.create(user);
+            const result = await userService.saveObject(user);
             done(null,result,req.flash('messageRegister','success'))
         } catch (error) {
             done(error);
@@ -46,7 +46,7 @@ const initializePassport = async () =>{
     passport.use('login',new localStrategy({usernameField:'email'},async(email,password,done)=>{
         try {
             if(!email || !password) return done(null,false,{message:"valores incompletos",status:null});//verifico que no me allan enviado campos vacios.
-            const user = await registerModel.findOne({email:email});//busco en la base de datos el usuario por su correo.
+            const user = await userService.getByOptions(email);//busco en la base de datos el usuario por su correo.
             if (!user) return done(null,false,{message:"el correo ingresado no existe",status:false});//si no existe envio un estado de error indicando la situacion
             const existPassword = await isValidPassword(user,password);//esto me retorna true si la comparacion de contraseñas fue correcta o sino false.
             if (existPassword === false) return done(null,false,{status:"error",error:"la contraseña ingresada es incorrecta"}); 
@@ -63,7 +63,7 @@ const initializePassport = async () =>{
 
     //debe recibir el id y traer el id de la base de datos. 
     passport.deserializeUser(async(id,done)=>{
-        let result = await registerModel.findOne({_id:id});
+        let result = await userService.getByOptions(id)
         return done(null,result)
     })
 }

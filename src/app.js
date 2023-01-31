@@ -5,9 +5,10 @@ import apiCartsRouter from './router/api.cart.routes.js';
 import sessionRouter from './router/api.session.routes.js';
 import __dirname from './utils.js';
 import { Server } from 'socket.io';
-import ContainerDAOs from './daos/index.js';
-import ContainerMongoChats from './daos/contMongoChats.js';
-import chatModel from './models/chats.js';
+// import ContainerDAOs from './daos/index.js';
+// import ContainerMongoChats from './daos/contMongoChats.js';
+// import chatModel from './models/chats.js';
+import { chatService , productService } from './services/services.js';
 import dotenvConfig from './config/dotenv.config.js';
 //importamos estos paquetes para poder crear nuestra session.
 import session from 'express-session';
@@ -114,11 +115,6 @@ app.get('/info',(req,res)=>{
 })
 
 
-
-//desestructuro del DAOs.
-const {ManagerProduct} = ContainerDAOs;
-const ManagerChat = new ContainerMongoChats(chatModel);
-
 //conectamos nuestro servidor con el servidor de io.
 const io = new Server(server);
 
@@ -126,16 +122,16 @@ const io = new Server(server);
 io.on('connection',async(socket)=>{
     console.log('socket connected');
 
-    const data = await ManagerProduct.getAll();//trae el array de productos que puede ser de la base mongoDB o del JSON.
+    const data = await productService.getAll();//trae el array de productos que puede ser de la base mongoDB o del JSON.
     io.emit('arrayProductos',data);//emito el JSON al servidor para que lo vean todos
 
     //traigo los mensajes que habia en mi base mongoDB.
-    const historial = await ManagerChat.getAll();
+    const historial = await chatService.getAll();
     socket.emit('arraychats',historial);
 
     socket.on('message',async(data)=>{//recibo el mensaje que me enviaron.
-        await ManagerChat.save(data);//guardo los mensajes en la base de mongoDB.
-        const arrayMessages = await ManagerChat.getAll();//traigo los datos de la base MongoDB
+        await chatService.saveObject(data);//guardo los mensajes en la base de mongoDB.
+        const arrayMessages = await chatService.getAll();//traigo los datos de la base MongoDB
         io.emit('arraychats',arrayMessages);
     })
     socket.on('registrado',user=>{

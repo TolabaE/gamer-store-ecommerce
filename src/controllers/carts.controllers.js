@@ -1,9 +1,6 @@
 import nodemailer from 'nodemailer';
-import ContainerDAOs from "../daos/index.js";
 import dotenvConfig from '../config/dotenv.config.js';
-
-//desestructuro los managers que exporte desde la carpeta daos, para acceder a sus metodos
-const { ManagerCart,ManagerProduct } = ContainerDAOs;
+import { cartService , productService } from '../services/services.js';
 
 
 //creo una funcion que me trae los productos del usuario,apartir de su ID. 
@@ -32,7 +29,6 @@ const productsFilter = (carrito,productos) =>{
 //creo una funcion envio de pedido
 const orderDelivery = async(req,res) =>{
     const pedido = req.body
-    console.log(pedido);
     const {email,first_name,cart_ID} = req.session.user; //obtengo el email del usuario que realiza la compra.
     const {product} = pedido;
     //creamos un trasporte con nodemailer para poder usarlo despues;
@@ -73,22 +69,22 @@ const orderDelivery = async(req,res) =>{
     })
 
     //limpio el carrito de productos pasando su ID.
-    await ManagerCart.clearCartById(cart_ID);
+    await cartService.clearCartById(cart_ID);
     res.send({status:"success",payload:result});
 }
 
 const addCart = async(req,res) =>{
     const {cantidad,prod_id}= req.body;//obtengo los datos que me envian por el fetch.
     const {cart_ID} = req.session.user;//obtengo el id de carrito del usuario que esta logeado
-    await ManagerCart.addProductAtCart(cart_ID,prod_id,cantidad);//guardo los productos en el carrito que le fue asignado al registrarse.
+    await cartService.addProductAtCart(cart_ID,prod_id,cantidad);//guardo los productos en el carrito que le fue asignado al registrarse.
     res.send({status:"success"});
 }
 
 const getCartProducts = async(req,res) =>{
     if(!req.session.user) return res.send({status:"error",error:"no estas logeado"});
     const {cart_ID,first_name} = req.session.user;//obtengo el id de carrito y el nombre del usuario que esta logeado
-    const {cart} = await ManagerCart.getCartById(cart_ID);//ya tengo el carrito asociado a sus productos.
-    const products = await ManagerProduct.getAll();
+    const {cart} = await cartService.getByOptions(cart_ID);//ya tengo el carrito asociado a sus productos.
+    const products =  await productService.getAll();
     const arreglo = productsFilter(cart,products);//llamo a la funcion de traerme los productos de acuerdo al ID del carrito del usuario.
     res.send({status:"success",payload:arreglo,client: first_name});
 }
@@ -96,7 +92,7 @@ const getCartProducts = async(req,res) =>{
 const removeProductCart = async(req,res) =>{
     const ProdCart = req.params;//obtengo el id que me pasan por parametro del producto a eliminar del carrito,
     const {cart_ID} = req.session.user;//obtengo el id del carrito para eliminar su producto.
-    await ManagerCart.deleteProductAtCart(cart_ID,ProdCart.id);
+    await cartService.deleteProductAtCart(cart_ID,ProdCart.id);
     res.send({status:"success",payload:`producto eliminado del carrito`});
 }
 
