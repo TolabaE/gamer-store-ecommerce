@@ -1,13 +1,10 @@
 import passport from "passport";
 import local from "passport-local";
-// import registerModel from "../models/session.js";
 import { createHash , isValidPassword } from "../utils.js";
 import { PORT } from "../app.js";
-// import ContainerDAOs from "../daos/index.js";//importo el managers del carrito.
 import { userService , cartService } from "../services/services.js";
 
 const localStrategy = local.Strategy;//primero llamamos a una estrategia de autenticacion del local.
-// const {ManagerCart} = ContainerDAOs;//desestructuro para obtener al manager cart.
 
 //declaro una nueva estrategia local,
 
@@ -21,13 +18,13 @@ const initializePassport = async () =>{
             const {first_name,last_name} = req.body;
             // const imagen = req.file.filename;// 
             if (!first_name || !last_name || !req.file) return done(null,false,req.flash('messageRegister','Datos incompletos'));
-            const existUser = await userService.getByOptions(email) //busco en la base mongo si el usuario existe.
+            const existUser = await userService.getByOptions({email});//busco en la base mongo si el usuario existe.
             if (existUser) return done(null,false,req.flash('messageRegister',"el usuario ya esta registrado"));
             const hashedPass = await createHash(password);//creo un nuevo password encriptado, apartir del que me envian por el register.
-            //aqui reconstruyo los datos que me enviaron del form en un objeto para poder almacenarlo en la base mongo
+            //al registrarse le creo un carrito vacio y me retorna el ID con el que fue asignado.
+            const idNewCart = await cartService.createCart();
 
-            //al registrarse le creo un carrito vacio,
-            const idNewCart = await cartService.createCart();//creo el carrito y me retorna el ID con el que fue asignado.
+            //aqui reconstruyo los datos que me enviaron del form en un objeto para poder almacenarlo en la base mongo
             const user ={
                 first_name,
                 last_name,
@@ -46,7 +43,7 @@ const initializePassport = async () =>{
     passport.use('login',new localStrategy({usernameField:'email'},async(email,password,done)=>{
         try {
             if(!email || !password) return done(null,false,{message:"valores incompletos",status:null});//verifico que no me allan enviado campos vacios.
-            const user = await userService.getByOptions(email);//busco en la base de datos el usuario por su correo.
+            const user = await userService.getByOptions({email:email});//busco en la base de datos el usuario por su correo.
             if (!user) return done(null,false,{message:"el correo ingresado no existe",status:false});//si no existe envio un estado de error indicando la situacion
             const existPassword = await isValidPassword(user,password);//esto me retorna true si la comparacion de contraseñas fue correcta o sino false.
             if (existPassword === false) return done(null,false,{status:"error",error:"la contraseña ingresada es incorrecta"}); 
@@ -63,11 +60,10 @@ const initializePassport = async () =>{
 
     //debe recibir el id y traer el id de la base de datos. 
     passport.deserializeUser(async(id,done)=>{
-        let result = await userService.getByOptions(id)
+        let result = await userService.getByOptions({_id:id});//busco por el _id.
         return done(null,result)
     })
 }
 
 //esta funcion la importamos a nuestra app principal que es alli donde la vamos a conectar.
 export default initializePassport;
-

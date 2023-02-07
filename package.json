@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/ultimate.test.js"
   },
   "repository": {
     "type": "git",
@@ -38,5 +38,10 @@
     "socket.io": "^4.5.3",
     "sqlite3": "^5.1.2",
     "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
   }
 }

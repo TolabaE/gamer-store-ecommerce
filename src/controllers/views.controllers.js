@@ -32,7 +32,8 @@ const profilePage = (req,res) =>{
 
 const postForm =  async(req,res) =>{
     const producto = req.body;
-    await productService.saveObject(producto);
+    const result = await productService.saveObject(producto);
+    res.send({status:"success",payload:result})
     res.redirect('/form');
 };
 

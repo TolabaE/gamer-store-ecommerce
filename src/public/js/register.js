@@ -12,7 +12,7 @@ register.addEventListener('submit',(event)=>{
     .then(result=>result.json())//a la promesa que nos devuelve lo vamos a pasar a json
     .then(result=>{
         if (result.status == "success") {
-            alert.innerHTML = `<h3 style:"color:green">El usuario ${result._id} fue registrado</h3>`,
+            alert.innerHTML = `<h3 style:"color:green">El usuario ${result.payload} fue registrado</h3>`,
             register.reset();
         }
         else if (result.status === "error"){
@@ -20,11 +20,3 @@ register.addEventListener('submit',(event)=>{
         }
     })
 })
-
-// const objet = {};//creo un objeto vacio.
-//     data.forEach((value,key)=>objet[key] = value)//recorro la data con un forEach y al objeto le agrego su clave y valor.
-//     fetch('/api/session/register',{
-//         method:'POST',
-//         body:JSON.stringify(objet),
-//         headers:{'Content-type':'application/json'}
-//     })//podemos cachear la promesa que nos devulven del back-end.

@@ -69,21 +69,23 @@ const orderDelivery = async(req,res) =>{
     })
 
     //limpio el carrito de productos pasando su ID.
-    await cartService.clearCartById(cart_ID);
+    const status = await cartService.clearCartById(cart_ID);//el problema es que el find me trae un arreglo.
+    if (status.modifiedCount === 0 ) return res.send({status:"error",error:"no se a podido eliminar los productos del carrito"})
     res.send({status:"success",payload:result});
 }
 
 const addCart = async(req,res) =>{
+    if (!req.session.user) return res.send({status:"error",error:"debes estar logeado para agregar un producto a tu carrito"})
     const {cantidad,prod_id}= req.body;//obtengo los datos que me envian por el fetch.
     const {cart_ID} = req.session.user;//obtengo el id de carrito del usuario que esta logeado
-    await cartService.addProductAtCart(cart_ID,prod_id,cantidad);//guardo los productos en el carrito que le fue asignado al registrarse.
-    res.send({status:"success"});
+    const result = await cartService.addProductAtCart(cart_ID,prod_id,cantidad);//guardo los productos en el carrito que le fue asignado al registrarse.
+    res.send({status:"success",payload:result});
 }
 
 const getCartProducts = async(req,res) =>{
     if(!req.session.user) return res.send({status:"error",error:"no estas logeado"});
     const {cart_ID,first_name} = req.session.user;//obtengo el id de carrito y el nombre del usuario que esta logeado
-    const {cart} = await cartService.getByOptions(cart_ID);//ya tengo el carrito asociado a sus productos.
+    const {cart} = await cartService.getCartById(cart_ID);//ya tengo el carrito asociado a sus productos.
     const products =  await productService.getAll();
     const arreglo = productsFilter(cart,products);//llamo a la funcion de traerme los productos de acuerdo al ID del carrito del usuario.
     res.send({status:"success",payload:arreglo,client: first_name});

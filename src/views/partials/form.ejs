@@ -1,25 +1,22 @@
 <div class="container-form">
     <form action="/datos" method="post" class="box-form" id="dataForm">
-        <label for="">Nombre</label>
 
+        <label for="text">Nombre</label>
         <input type="text" required name="nombre" placeholder="Nombre del producto">
 
-        <label for="">Marca</label>
+        <label for="text">Marca</label>
+        <input type="text" required name="marca" placeholder="Nombre de la marca ej:sony,adidas">
 
-        <input type="text" required  name="marca" placeholder="Nombre de la marca ej:sony,adidas">
-    
-        <label for="">Precio</label>
+        <label for="number">Precio</label>
+        <input type="number" required name="precio" id="" placeholder="Colocar el precio sin comas,ni puntos">
 
-        <input type="number" required  name="precio" id="" placeholder="Colocar el precio sin comas,ni puntos">
-    
-        <label for="">url de la imagen</label>
+        <label for="text">url de la imagen</label>
+        <input type="text" required name="image" placeholder="URL de la imagen">
 
-        <input type="text" required  name="image" placeholder="URL de la imagen">
-    
-        <label for="">stock del producto</label>
-
-        <input type="number" required  name="stock" placeholder="Cantidad de unidades disponibles">
+        <label for="number">stock del producto</label>
+        <input type="number" required name="stock" placeholder="Cantidad de unidades disponibles">
 
         <button type="submit">enviar</button>
+
     </form>
 </div>

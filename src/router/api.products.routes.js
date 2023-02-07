@@ -1,8 +1,4 @@
 import { Router } from "express";
-// import ContainerDAOs from "../daos/index.js";
-
-
-// const {ManagerProduct} = ContainerDAOs;
 
 
 const router = Router();

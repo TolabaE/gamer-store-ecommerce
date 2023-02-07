@@ -68,7 +68,10 @@ socket.on('arrayProductos',productos=>{
                     body:JSON.stringify(pedido),
                     headers:{'Content-type':'application/json'}
                 })//podemos cachear la promesa que nos devulven del back-end.
-                
+                .then(response => response.json())
+                .then(result =>{
+                    console.log(result);
+                })
             }
         })
     }

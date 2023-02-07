@@ -32,19 +32,17 @@ export default class Dao {
     //creo los metodos que van a compartir todos los Managers repository.
     get = async(entity) =>{
         if(!this.models[entity]) throw new Error('la entidad indicada no esta definida en el modelo');
-        const result = await this.models[entity].find({});
-        return result;
+        return await this.models[entity].find({});
     }
 
     save = async(document,entity) =>{
         if(!this.models[entity]) throw new Error('la entidad indicada no esta definida en el modelo');
-        const {_id} = await this.models[entity].create(document);
-        return _id.valueOf();
+        return await this.models[entity].create(document);
     }
 
     getBy = async(options,entity) =>{
         if(!this.models[entity]) throw new Error('la entidad indicada no esta definida en el modelo');
-        const result = await this.models[entity].findOne({options});
+        const result = await this.models[entity].findOne(options);
         return result;
     }
 
@@ -56,8 +54,7 @@ export default class Dao {
 
     updateProp = async(params,prop,entity) =>{
         if(!this.models[entity]) throw new Error('la entidad indicada no esta definida en el modelo');
-
-        return await this.models[entity].updateOne({params},{$set:prop})
+        return await this.models[entity].updateOne(params,{$set:prop})
         // updateOne({_id:idCart},{$set:{cart:cartFilter}})
     }
 

@@ -9,7 +9,7 @@ export default class GenericRepository{
     getAll = () => this.dao.get(this.model);
     saveObject = (doc) => this.dao.save(doc,this.model);
     getByOptions = (option) => this.dao.getBy(option,this.model);
-    updateById = (id,doc) => this.dao.updateId(id,doc,this.model);
-    updateOneProperty = (param,newProp) => this.dao.updateProp(param,newProp,this.model);
+    updateById = (id,doc) => this.dao.updateId(id,doc,this.model);//este metodo me permite actualizar todo el objeto.
+    updateOneProperty = (param,newProp) => this.dao.updateProp(param,newProp,this.model);//este metodo me permite actualizar una propiedad del objeto.
     deleteById = (id) => this.dao.deleteId(id,this.model);
 }
