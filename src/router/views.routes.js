@@ -7,7 +7,6 @@ const router = Router();
 router.get('/',viewsControllers.registerPage);//muestro la vista register
 router.get('/login',viewsControllers.loginPage);//muestro la vista login en el sitio
 router.get('/form',viewsControllers.formPage);//muestro la vista del formulario para cargar productos.
-router.get('/cliente',viewsControllers.clientPage);//muestro la vista del chats de la pagina
 router.get('/productos',viewsControllers.productsPage);//muestro la vista donde estan todos los productos.
 router.get('/cart',viewsControllers.cartsPage);//muestro la vista del carrito de compras.
 router.get('/profile',viewsControllers.profilePage);//muestro la vista del perfil de usuario.

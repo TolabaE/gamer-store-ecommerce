@@ -5,9 +5,6 @@ import apiCartsRouter from './router/api.cart.routes.js';
 import sessionRouter from './router/api.session.routes.js';
 import __dirname from './utils.js';
 import { Server } from 'socket.io';
-// import ContainerDAOs from './daos/index.js';
-// import ContainerMongoChats from './daos/contMongoChats.js';
-// import chatModel from './models/chats.js';
 import { chatService , productService } from './services/services.js';
 import dotenvConfig from './config/dotenv.config.js';
 //importamos estos paquetes para poder crear nuestra session.
@@ -31,7 +28,7 @@ const { m } = minimist(process.argv.slice(2), { default:{m: "fork"} });
 const app = express();
 export const PORT = process.env.PORT || 8080; // usa el puerto 8080 en caso de que no tenga uno.
 const CPUs = os.cpus().length;
-let server 
+let server
 
 
 //si me pasan por paramtro el nombre cluster,entonces ejecuto el servidor en modo cluster.
@@ -51,7 +48,7 @@ if (m === "cluster") {
 	}
 	//sino por defecto si no me pasan ningun parametro ejecuto en modo fork.
 } else if (m === "fork") {
-	server = app.listen(PORT, console.log(`servidor escuchando en modo fork en puerto:${PORT}`));
+    server = app.listen(PORT, console.log(`servidor escuchando en modo fork en puerto:${PORT}`));
 }
 
 
@@ -114,27 +111,9 @@ app.get('/info',(req,res)=>{
     res.send({status:"success",payload:data})
 })
 
-
-//conectamos nuestro servidor con el servidor de io.
 const io = new Server(server);
 
-
 io.on('connection',async(socket)=>{
-    console.log('socket connected');
-
-    const data = await productService.getAll();//trae el array de productos que puede ser de la base mongoDB o del JSON.
-    io.emit('arrayProductos',data);//emito el JSON al servidor para que lo vean todos
-
-    //traigo los mensajes que habia en mi base mongoDB.
-    const historial = await chatService.getAll();
-    socket.emit('arraychats',historial);
-
-    socket.on('message',async(data)=>{//recibo el mensaje que me enviaron.
-        await chatService.saveObject(data);//guardo los mensajes en la base de mongoDB.
-        const arrayMessages = await chatService.getAll();//traigo los datos de la base MongoDB
-        io.emit('arraychats',arrayMessages);
-    })
-    socket.on('registrado',user=>{
-        socket.broadcast.emit('newuser',user)
-    })
-});
+    const data = await productService.getAll();//trae el arreglo de productos de la base de datos.
+    io.emit('arrayProductos',data);//emito el JSON al cliente.
+})
