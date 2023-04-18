@@ -19,12 +19,12 @@ socket.on('arrayProductos',productos=>{
                 <p>stock: ${item.stock} unidades</p>
                 <div class="count-cart">
                     <button>-</button>
-                    <h4>0</h4>
+                    <b>0</b>
                     <button>+</button>
                 </div>
                 <h4>$${item.precio}</h4>
             </div>
-            <button>agregar</button>
+            <span class="container-card_button"><img src="https://img.icons8.com/material-outlined/30/000000/shopping-cart--v1.png"/></span>
         </div>`
     });
     containerdiv.innerHTML = insertDOM;
@@ -70,9 +70,31 @@ socket.on('arrayProductos',productos=>{
                 })//podemos cachear la promesa que nos devulven del back-end.
                 .then(response => response.json())
                 .then(result =>{
-                    console.log(result);
-                })
-            }
-        })
-    }
+                    if (result.status === "error") {
+                        Toastify({
+                            text: `${result.error}`,
+                            duration: 2000,
+                            gravity: "top", // `top` or `bottom`
+                            position: "right", // `left`, `center` or `right`
+                            stopOnFocus: true, // Prevents dismissing of toast on hover
+                            style: {
+                                background: "linear-gradient(90deg, rgba(250,49,49,1) 0%, rgba(238,78,36,1) 47%, rgba(238,122,36,1) 90%)"
+                            },
+                        }).showToast();
+                    } else {
+                        Toastify({
+                            text:"Producto agregado al carrito",
+                            duration: 2000,
+                            gravity: "top", // `top` or `bottom`
+                            position: "right", // `left`, `center` or `right`
+                            stopOnFocus: true, // Prevents dismissing of toast on hover
+                            style: {
+                                background: "linear-gradient(to right, #00b09b, #96c93d)",
+                            },
+                        }).showToast();
+                    }
+                });
+            };
+        });
+    };
 });

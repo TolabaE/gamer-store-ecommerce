@@ -1,5 +1,8 @@
 import { productService } from "../services/services.js";
 
+const homePage = (req,res)=>{
+    res.render('pages/home')
+}
 
 const loginPage = (req,res) =>{
     res.render('pages/login')
@@ -10,7 +13,7 @@ const registerPage = (req,res) =>{
 };
 
 const formPage = (req,res) =>{
-    res.render('pages/home')
+    res.render('pages/update')
 };
 
 const clientPage = (req,res) =>{
@@ -34,10 +37,12 @@ const postForm =  async(req,res) =>{
     const producto = req.body;
     const result = await productService.saveObject(producto);
     res.send({status:"success",payload:result})
-    res.redirect('/form');
+    res.redirect('/update');
 };
 
+
 export default {
+    homePage,
     loginPage,
     registerPage,
     clientPage,

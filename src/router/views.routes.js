@@ -4,7 +4,8 @@ import viewsControllers from "../controllers/views.controllers.js";
 
 const router = Router();
 
-router.get('/',viewsControllers.registerPage);//muestro la vista register
+router.get('/',viewsControllers.homePage);
+router.get('/register',viewsControllers.registerPage);//muestro la vista register
 router.get('/login',viewsControllers.loginPage);//muestro la vista login en el sitio
 router.get('/form',viewsControllers.formPage);//muestro la vista del formulario para cargar productos.
 router.get('/productos',viewsControllers.productsPage);//muestro la vista donde estan todos los productos.

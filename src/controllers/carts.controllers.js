@@ -70,12 +70,12 @@ const orderDelivery = async(req,res) =>{
 
     //limpio el carrito de productos pasando su ID.
     const status = await cartService.clearCartById(cart_ID);//el problema es que el find me trae un arreglo.
-    if (status.modifiedCount === 0 ) return res.send({status:"error",error:"no se a podido eliminar los productos del carrito"})
+    if (status.modifiedCount === 0 ) return res.send({status:"error",error:"no se pudo completar esta acción"})
     res.send({status:"success",payload:result});
 }
 
 const addCart = async(req,res) =>{
-    if (!req.session.user) return res.send({status:"error",error:"debes estar logeado para agregar un producto a tu carrito"})
+    if (!req.session.user) return res.send({status:"error",error:"debes estar logeado para agregar un producto"})
     const {cantidad,prod_id}= req.body;//obtengo los datos que me envian por el fetch.
     const {cart_ID} = req.session.user;//obtengo el id de carrito del usuario que esta logeado
     const result = await cartService.addProductAtCart(cart_ID,prod_id,cantidad);//guardo los productos en el carrito que le fue asignado al registrarse.

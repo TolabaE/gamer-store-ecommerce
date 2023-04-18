@@ -10,7 +10,7 @@ body{
     --colorPalet1:#cec9c5;
     --colorPalet2:#ff0000;
     --colorPalet3:#272523;
-    --colorPalet4: rgb(202, 70, 70);
+    --colorPalet4: #ca4646;
     --colorPalet5:#fffefe;
 }
 .title-pages{
@@ -41,6 +41,7 @@ body{
     height: 25px;
     margin: 0px 20px;
 }
+/* estilos de la seccion productos */
 .container-card-father{
     display: flex;
     flex-wrap: wrap;
@@ -61,6 +62,7 @@ body{
 .container-img{
     width: 200px;
     height: 220px;
+    object-fit: cover;
 }
 .box-img{
     width: 100%;
@@ -71,7 +73,29 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
+    gap: 5px;
+    margin:5px 0;
+}
+.container-card_button{
+    text-align: center;
+    padding: 2px 5px;
+    background-color: var(--colorPalet2);
+    border-radius: 3px;
+}
+.count-cart{
+    display: flex;
+    align-items: center;
+}
+.count-cart button{
+    font-size: large;
+    padding: 0 38px;
+}
+.count-cart button:hover{
+    background-color:var(--colorPalet3);
+    color:var(--colorPalet5);
+}
+.count-cart b{
+    padding: 4px;
 }
 /* estilos del navbar */
 .container-navbar{
@@ -136,7 +160,6 @@ body{
 }
 /* estilos de la pagina login */
 .container-login{
-    background-color: var(--colorPalet5);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -145,18 +168,7 @@ body{
 .container-login form {
     padding: 20px;
     border-radius: 12px;
-}
-/* estilos del contador para agregar productos */
-.count-cart{
-    display: flex;
-    align-items: center;
-}
-.count-cart button{
-    font-size: large;
-    padding: 2px 4px;
-}
-.count-cart h4{
-    padding: 4px;
+    background-color: var(--colorPalet5);
 }
 /* estilos de la pagina perfil de usuario */
 .img-profile{
