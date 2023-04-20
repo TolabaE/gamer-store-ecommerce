@@ -5,7 +5,6 @@ dotenv.config()
 
 export default {
     mongo:{
-        USER: process.env.mongo_user,
         PWD:process.env.mongo_password,
         DB:process.env.mongo_database,
     },

@@ -10,8 +10,8 @@ export default class Dao {
     constructor(){
 
         mongoose.set('strictQuery', false);
-        this.connections = mongoose.connect(`mongodb+srv://${dotenvConfig.mongo.USER}:${dotenvConfig.mongo.PWD}@codercluster0.nvobhct.mongodb.net/${dotenvConfig.mongo.DB}?retryWrites=true&w=majority`,error=>{
-            if(error) console.log(error);
+        this.connections = mongoose.connect(`mongodb+srv://coderUser:${dotenvConfig.mongo.PWD}@codercluster0.nvobhct.mongodb.net/${dotenvConfig.mongo.DB}?retryWrites=true&w=majority`,error=>{
+            if(error) return console.log(error);
             else console.log('mongoose database connected');
         })
         //realizo la coneccion de mongoose con mis esquemas creado en mongoDb/models.

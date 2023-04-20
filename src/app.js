@@ -5,7 +5,7 @@ import apiCartsRouter from './router/api.cart.routes.js';
 import sessionRouter from './router/api.session.routes.js';
 import __dirname from './utils.js';
 import { Server } from 'socket.io';
-import { chatService , productService } from './services/services.js';
+import { productService } from './services/services.js';
 import dotenvConfig from './config/dotenv.config.js';
 //importamos estos paquetes para poder crear nuestra session.
 import session from 'express-session';
@@ -58,12 +58,12 @@ app.set('view engine','ejs');
 
 app.use(express.json()); // Especifica que podemos recibir json
 app.use(express.urlencoded({extended:true})); //Habilita poder procesar y recibir datos más complejos en la url como archivos.
-app.use(addLoggers);//uso la funcion como middlewear,para que este disponible en todo mi aplicativo.
+// app.use(addLoggers);//uso la funcion como middlewear,para que este disponible en todo mi aplicativo.
 
 // configuramos la conexion de la session con mongo atlas aqui.
 app.use(session({
     store:MongoStore.create({
-        mongoUrl:`mongodb+srv://${dotenvConfig.mongo.USER}:${dotenvConfig.mongo.PWD}@codercluster0.nvobhct.mongodb.net/${dotenvConfig.mongo.DB}?retryWrites=true&w=majority`,
+        mongoUrl:`mongodb+srv://coderUser:${dotenvConfig.mongo.PWD}@codercluster0.nvobhct.mongodb.net/${dotenvConfig.mongo.DB}?retryWrites=true&w=majority`,
         ttl:900,
     }),
     secret:`${dotenvConfig.session.SECRET}`,

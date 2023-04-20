@@ -1,28 +1,65 @@
 <nav class="container-navbar">
+    <button onclick="toggleMenu()"><img src="https://img.icons8.com/ios-filled/25/null/menu--v1.png"/></button>
     <div class="container-log">
         GAMER<span>STORE</span>
     </div>
-    <ul class="list-menu">
+    <div class="list-menu">
         <li>
-            <a href="/profile">perfil</a>
+            <a href="/profile">Perfil</a>
         </li>
         <!-- <li>
             <a href="/form">formulario</a>
         </li> -->
         <li>
-            <a href="/">inicio</a>
+            <a href="/">Inicio</a>
         </li>
         <li>
-            <a href="/productos">productos</a>
+            <a href="/productos">Productos</a>
         </li>
-        <div>
-            <a href="/cart"><img src="https://img.icons8.com/fluency-systems-filled/30/null/buy.png"/></a>
-        </div>
         <li>
-            <a href="/login">login</a>
+            <a href="/cart">Mi carrito</a>
+        </li>
+        <li>
+            <a href="/login">Usuario</a>
         </li>
         <div>
             <button><a href="/api/session/logout">cerrar session</a></button>
         </div>
-    </ul>
+        <!-- <span class="toggler_menu-response">
+            
+        </span> -->
+    </div>
+    <span >
+        
+    </span>
 </nav>
+<script>
+    const toggleMenu = () =>{
+        document.body.classList.toggle("open")
+    }
+</script> 
+
+<!-- <nav class="navbar">
+    <button class="burger" onclick="toggleMenu()"><img src="https://img.icons8.com/ios-filled/25/null/menu--v1.png"/></button>
+    <button class="btn">Logo del sitio  </button>
+    <li class="list-menu">
+        <a href="">Inicio</a>
+        <a href="">Productos</a>
+        <a href="">Mi carrito</a>
+        <a href="">Usuario</a>
+        <div>
+            <button class="btn"></button>
+            <div class="dropdown-menu">
+                <a href="">Perfil</a>
+                <a href="">Login</a>
+                <button>Salir</button>
+            </div>
+        </div>
+    </li>
+</nav>
+
+<script>
+    const toggleMenu = () =>{
+        document.body.classList.toggle("open")
+    }
+</script> -->
