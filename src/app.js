@@ -58,7 +58,7 @@ app.set('view engine','ejs');
 
 app.use(express.json()); // Especifica que podemos recibir json
 app.use(express.urlencoded({extended:true})); //Habilita poder procesar y recibir datos más complejos en la url como archivos.
-// app.use(addLoggers);//uso la funcion como middlewear,para que este disponible en todo mi aplicativo.
+app.use(addLoggers);//uso la funcion como middlewear,para que este disponible en todo mi aplicativo.
 
 // configuramos la conexion de la session con mongo atlas aqui.
 app.use(session({

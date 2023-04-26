@@ -5,9 +5,6 @@ const customLevels = {
     error: 0,
     warn: 1,
     info: 2,
-    http: 3,
-    verbose: 4,
-    debug: 5,
 }
 
 //aqui estoy creando los niveles de winston,y los archivos donde se van a guardar los distintos console.log
@@ -17,7 +14,7 @@ const logger = winston.createLogger({
         new winston.transports.Console({ level:'info' }),//apartir del nivel indicado me muestra los logs por consola.
         new winston.transports.File({ filename: './src/logs/error.log', level: 'error' }),
         new winston.transports.File({ filename: './src/logs/warn.log', level: 'warn' }),
-        new winston.transports.File({filename: './src/logs/combined.log',level:'info'})
+        new winston.transports.File({filename: './src/logs/info.log',level:'info'})
     ]
 });
 
