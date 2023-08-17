@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@200&family=Roboto&display=swap');
+
 *{
     padding: 0;
     margin: 0;
@@ -161,26 +163,53 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 8px;
+    border: 3px solid #5353e9;
+    /* box-shadow: 0 0 10px 2px #1e0354; */
+    margin: 5% 30%;
+    padding: 25px;
+}
+.container-register h1{
+    color:#ff0000
 }
 .formStyle {
     text-align: center;
-    padding: 30px;
-    border-radius: 12px;
 }
 .formStyle input{
-    padding: 5px 10px;
+    margin: 5px;
+    padding: 4px 20px;
 }
 /* estilos de la pagina login */
+.container-register:hover, .container-login:hover{
+    box-shadow: 0 0 10px 2px #1e0354;
+    border: 3px solid rgb(6, 6, 143);
+}
 .container-login{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: var(--colorPalet5);
+    margin: 10% 30%;
+    padding: 20px;
+    border-radius: 8px;
+    border: 3px solid #4d4de6;
+    /* box-shadow: 0 0 10px 2px #1e0354; */
 }
 .container-login form {
     padding: 20px;
     border-radius: 12px;
-    background-color: var(--colorPalet5);
+    display: grid;
+    gap: 6px;
+}
+.container-login form input{
+    padding: 4px;
+}
+.container-login form label{
+    padding: 2px;
+}
+.container-login h1{
+    color: #ff0000;
 }
 /* estilos de la pagina perfil de usuario */
 .img-profile{
@@ -257,6 +286,13 @@ body{
         width: 100%;
         height: 100vh;
         opacity: 0.8;
+    }
+    .container-register{
+        margin: 15% 10%;
+        padding: 10px;
+    }
+    .container-login{
+        margin: 15% 10%;
     }
 }
 @media (min-width:768px){
