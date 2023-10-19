@@ -1,9 +1,5 @@
 import { productService } from "../services/services.js";
 
-const homePage = (req,res)=>{
-    res.render('pages/home')
-}
-
 const loginPage = (req,res) =>{
     res.render('pages/login')
 };
@@ -42,7 +38,6 @@ const postForm =  async(req,res) =>{
 
 
 export default {
-    homePage,
     loginPage,
     registerPage,
     clientPage,

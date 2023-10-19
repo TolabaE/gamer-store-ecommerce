@@ -25,8 +25,8 @@ loginForm.addEventListener('submit',(event)=>{
                 showConfirmButton: false,
                 timerProgressBar: true,
             }).then(()=>{
-                // window.location = "/productos";
-                window.location.assign("/productos");
+                // window.location = "/";
+                window.location.assign("/");
             })
         }else if (result.status === "error"){
             Toastify({
@@ -35,16 +35,4 @@ loginForm.addEventListener('submit',(event)=>{
             }).showToast();
         }
     })
-})
-
-// else if(result.status == null){
-//     Toastify({
-//         text: "Datos incompletos",
-//         duration: 3000
-//     }).showToast();
-// }else if(result.status == false){
-//     Toastify({
-//         text: "el email ingresado es incorrecto",
-//         duration: 3000
-//     }).showToast();
-// }
+});

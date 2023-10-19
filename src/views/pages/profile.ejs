@@ -13,7 +13,7 @@
         <div class="container-profile">
             <h1>DATOS DEL USUARIO</h1>
             <div>
-                <img src=<%= profile.image %>  class="img-profile" alt="">
+                <img src=<%= profile.image %>  class="img-profile" alt="foto perfil del usuario">
             </div>
             <div>
                 <h2>Nombre: <%=profile.first_name%> </h2>
@@ -25,8 +25,9 @@
     <% }%>
 
     <% if (!profile) { %>
-        <div>
-            <h3>Debes iniciar session para ver tu perfil</h3>
+        <div style="text-align: center;padding-top: 20px;color: #ff0000;">
+            <h2>Debes iniciar session o registrarte para ver tu perfil</h2>
+
         </div>
     <% }%>
 
