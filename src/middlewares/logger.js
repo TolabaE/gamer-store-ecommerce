@@ -12,9 +12,9 @@ const logger = winston.createLogger({
     levels:customLevels,
     transports:[
         new winston.transports.Console({ level:'info' }),//apartir del nivel indicado me muestra los logs por consola.
-        new winston.transports.File({ filename: './src/logs/error.log', level: 'error' }),
-        new winston.transports.File({ filename: './src/logs/warn.log', level: 'warn' }),
-        new winston.transports.File({filename: './src/logs/info.log',level:'info'})
+        // new winston.transports.File({ filename: './src/logs/error.log', level: 'error' }),
+        // new winston.transports.File({ filename: './src/logs/warn.log', level: 'warn' }),
+        // new winston.transports.File({filename: './src/logs/info.log',level:'info'})
     ]
 });
 

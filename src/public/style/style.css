@@ -111,6 +111,7 @@ body{
     justify-content: space-around;
     align-items: center;
     z-index: 100;
+    box-shadow: 0 0 8px 10px rgb(101, 101, 101);
 }
 .container-log{
     display: flex;
@@ -172,13 +173,23 @@ body{
 .container-register h1{
     color:#ff0000
 }
-.formStyle {
-    text-align: center;
+.formStyle{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 80%;
 }
 .formStyle input{
-    margin: 5px;
-    padding: 4px 20px;
+    margin: 5px 0; 
+    padding: 4px;
+    width: 100%;
 }
+.btn-register-form{
+    width: 100%;
+    background-color: var(--colorPalet2);
+}
+
+
 /* estilos de la pagina login */
 .container-register:hover, .container-login:hover{
     box-shadow: 0 0 10px 2px #1e0354;
@@ -197,20 +208,37 @@ body{
     /* box-shadow: 0 0 10px 2px #1e0354; */
 }
 .container-login form {
-    padding: 20px;
+    padding:20px 0;
     border-radius: 12px;
     display: grid;
-    gap: 6px;
+    gap: 10px;
+    width: 70%;
 }
 .container-login form input{
     padding: 4px;
 }
+
+.btn-login-submit , .btn-register-form{
+    border: 0;
+    font-size: 16px;
+    height: 35px;
+    background-color: var(--colorPalet2);
+    color: var(--colorPalet5);
+    border-radius: 6px;
+}
+
+.btn-login-submit:hover, .btn-register-form:hover{
+    background-color: var(--colorPalet4);
+}
+
 .container-login form label{
     padding: 2px;
 }
 .container-login h1{
     color: #ff0000;
+    text-align: center;
 }
+
 /* estilos de la pagina perfil de usuario */
 .img-profile{
     width: 300px;
@@ -293,6 +321,11 @@ body{
     }
     .container-login{
         margin: 15% 10%;
+    }
+    .formStyle input{
+        margin: 5px 0; 
+        padding: 4px;
+        width: 95%;
     }
 }
 @media (min-width:768px){

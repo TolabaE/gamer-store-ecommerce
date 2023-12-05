@@ -24,7 +24,7 @@ socket.on('arrayProductos',productos=>{
                 </div>
                 <h4>$${item.precio}</h4>
             </div>
-            <span class="container-card_button"><img src="https://img.icons8.com/material-outlined/30/000000/shopping-cart--v1.png"/></span>
+            <button class="container-card_button"><img src="https://img.icons8.com/material-outlined/30/000000/shopping-cart--v1.png"/></button>
         </div>`
     });
     containerdiv.innerHTML = insertDOM;

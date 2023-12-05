@@ -10,7 +10,7 @@ const getAllProductCart = async() =>{
     const get = await fetch('/api/cart');//pido los datos con un fetch.
     const result = await get.json();//parseo la data que me envian.
     //creo una condicion,que si el usuario no esta logeado no me muestre los productos que estan en el carrito.
-    if (result.status === "error") return titleAlert.innerHTML = 'Debes iniciar session para ver tus productos agregados';
+    if (result.status === "error") return titleAlert.innerText = 'Inicia session para ver tus productos';
     if (result.payload.length === 0) return titleAlert.innerHTML = '¡tu carrito de compras esta vacio!';
 
     const data = result.payload;//desestructuro el resultado para obtener el arreglo de productos.
